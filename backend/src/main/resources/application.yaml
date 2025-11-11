@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testdb
+    username: test
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

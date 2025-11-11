@@ -1,0 +1,87 @@
+# =====================================================
+# 🌐 Unified .gitignore for Test-board (Spring Boot + React)
+# =====================================================
+
+# ------------------------------
+# 🧠 Common (운영체제, 에디터, 로그 등)
+# ------------------------------
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+
+# VS Code / IntelliJ / STS 공통 IDE 설정
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# ------------------------------
+# ⚛️ Frontend (React)
+# ------------------------------
+/frontend/node_modules
+/frontend/.pnp
+/frontend/.pnp.js
+/frontend/coverage
+/frontend/build
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+# 환경 변수 (API 키 등)
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# ------------------------------
+# ☕ Backend (Spring Boot / Gradle)
+# ------------------------------
+/backend/.gradle
+/backend/build/
+!/backend/gradle/wrapper/gradle-wrapper.jar
+!/backend/**/src/main/**/build/
+!/backend/**/src/test/**/build/
+
+# STS, Eclipse 관련
+/backend/bin/
+!/backend/**/src/main/**/bin/
+!/backend/**/src/test/**/bin/
+
+# IntelliJ IDEA 관련
+/backend/out/
+!/backend/**/src/main/**/out/
+!/backend/**/src/test/**/out/
+
+# NetBeans 관련
+/backend/nbproject/private/
+/backend/nbbuild/
+/backend/dist/
+/backend/nbdist/
+/backend/.nb-gradle/
+
+# 기타 도움말 파일
+/backend/HELP.md
+
+# ------------------------------
+# 🧩 Global exclusions (공통)
+# ------------------------------
+*.bak
+*.tmp
+*.log
+*.swp
+*.swo
+*.class
+
+# ------------------------------
+# ✅ End of file
+# ------------------------------
