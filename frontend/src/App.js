@@ -4,6 +4,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Test2 from './components/Test2.jsx';
+import Time from './components/Time.js';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <h1>{message||"로딩 중 ..."}</h1>
         </div> */}
         <Test2></Test2>
+        <Time></Time>
       </header>
     </div>
   );
