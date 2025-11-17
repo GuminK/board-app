@@ -5,27 +5,27 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Test2 from './components/Test2.jsx';
 import Time from './components/Time.js';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Test from './tests/Test.js';
 
 
 function App() {
-  // const [message, setMessage] = useState("");
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:8080/api/hello")
-  //   .then((res) => setMessage(res.data))
-  //   .catch((err) => console.error(err));  
-  // }, []);
-
   return (
     <div className="App">
-      <header className="App-header">
-        {/* <h1>Hello</h1>
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
-          <h1>{message||"로딩 중 ..."}</h1>
-        </div> */}
-        <Test2></Test2>
-        <Time></Time>
-      </header>
+      
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<>
+            <Test2/>
+            <Time/>
+        </>}>
+          </Route>
+          <Route path="/test" element={<Test />}>
+          </Route>
+          <Route path="/time" element={<Time />}>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
   

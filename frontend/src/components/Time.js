@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 
-const App = () => {
+const Time = () => {
     const [time, setTime] = React.useState("");
+    
     useEffect(() => {
         fetch("http://localhost:8080/api/time", {
             method: "GET"
@@ -25,4 +26,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default Time;
