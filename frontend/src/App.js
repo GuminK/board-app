@@ -1,13 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Test2 from './components/Test2.jsx';
 import Time from './components/Time.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Test from './tests/Test.js';
 import Header from './components/Header.js';
+import MainPage from './pages/Mainpage.js';
+import Board from './pages/Board.js'
 
 
 function App() {
@@ -21,11 +21,16 @@ function App() {
             <Time/>
         </>}>
           </Route>
+          <Route path="/board" element={<MainPage />}>
+          </Route>
+          <Route path="/board/:id" element={<Board />}>
+          </Route>
           <Route path="/test" element={<Test />}>
           </Route>
           <Route path="/time" element={<Time />}>
           </Route>
         </Routes>
+        {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );

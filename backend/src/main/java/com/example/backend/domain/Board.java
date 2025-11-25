@@ -7,15 +7,25 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-public class Member {
+public class Board {
     @Id @GeneratedValue
     private Long id;
 
-    private String memberName;
+    private String title;
+
+    private String contents;
+
+    @ColumnDefault("0")
+    private Long registerId;
+
+    @ColumnDefault("0")
+    private int hitCount;
+
 
 }
