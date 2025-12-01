@@ -8,6 +8,7 @@ import Test from './tests/Test.js';
 import Header from './components/Header.js';
 import MainPage from './pages/Mainpage.js';
 import Board from './pages/Board.js'
+import BoardRegister from './pages/BoardRegister.js';
 
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
             <Test2/>
             <Time/>
         </>}>
+          </Route>
+          <Route path="/board/new" element={<BoardRegister />}>
           </Route>
           <Route path="/board" element={<MainPage />}>
           </Route>

@@ -1,15 +1,16 @@
 package com.example.backend.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
@@ -19,6 +20,7 @@ public class Board {
 
     private String title;
 
+    @Column(columnDefinition = "text")
     private String contents;
 
     @ColumnDefault("0")
@@ -27,5 +29,16 @@ public class Board {
     @ColumnDefault("0")
     private int hitCount;
 
+    @CreatedDate
+    private LocalDateTime createDate;
+
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
+
+    @Builder
+    public Board(String title, String contents){
+        this.title = title;
+        this.contents = contents;
+    }
 
 }

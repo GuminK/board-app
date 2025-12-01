@@ -7,7 +7,18 @@ export default function Board() {
 
     const [board, setBoard] = useState({});
 
-    const fetchBoardById = async () => {
+    // const fetchBoardById = async () => {
+    //     try {
+    //         const response = await getBoardById(boardId);
+    //         console.log("Fetched board by id:", response);
+    //         setBoard(response.data);
+    //     } catch (error){
+    //         console.error("Failed to fetch board by id:", error);
+    //     }
+    // };
+
+    useEffect(() => {
+        const fetchBoardById = async () => {
         try {
             const response = await getBoardById(boardId);
             console.log("Fetched board by id:", response);
@@ -16,15 +27,13 @@ export default function Board() {
             console.error("Failed to fetch board by id:", error);
         }
     };
-
-    useEffect(() => {
         fetchBoardById();
     }, [boardId]);
     
     return (<>
         <div>Board Page</div>
         <div>Title: {board.title}</div>
-        <div>Content: {board.contents}</div>
+        <div style={{ whiteSpace: "pre-line" }}>Content: {board.contents}</div>
     </>
     );
 }
