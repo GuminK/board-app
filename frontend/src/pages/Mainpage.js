@@ -9,7 +9,6 @@ export default function MainPage() {
     const getBoardLists = async () => {
         try {
             const response = await getBoardList();
-            console.log("Fetched board list:", response);
             setBoardList(response.data);
         } catch (error) {
             console.error("Failed to fetch board list:", error);
@@ -22,9 +21,9 @@ export default function MainPage() {
 
     return (
         <div className="main-page">
-            <main>
+            <main style={{ maxWidth: 800, margin: "24px auto", padding: 16 }}>
                 <section className="boardList">
-                    <h1>Testpage boardList</h1>
+                    <h1>게시판 목록</h1>
                     <Link to ="/board/new">새 글 작성</Link>
                     <br></br>
                     {boardList.map((board, index) => (

@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.domain.Board;
 import com.example.backend.dto.BoardContentDataDTO;
+import com.example.backend.dto.BoardUpdateDataDTO;
 import com.example.backend.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -36,5 +37,14 @@ public class BoardService {
     public void saveBoard(BoardContentDataDTO data){
         Board board = new Board(data.getTitle(),data.getContents());
         boardRepository.save(board);
+    }
+
+    public void saveBoard(BoardUpdateDataDTO data){
+        Board board = new Board(data.getId(), data.getTitle(), data.getContents());
+        boardRepository.save(board);
+    }
+
+    public void deleteBoard(Long id){
+        boardRepository.deleteById(id);
     }
 }

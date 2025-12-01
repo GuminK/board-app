@@ -3,6 +3,7 @@ package com.example.backend.controller;
 
 import com.example.backend.domain.Board;
 import com.example.backend.dto.BoardContentDataDTO;
+import com.example.backend.dto.BoardUpdateDataDTO;
 import com.example.backend.service.BoardService;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,18 @@ public class BoardController {
     public String boardRegister(@RequestBody BoardContentDataDTO data){
         System.out.println(data);
         boardService.saveBoard(data);
+        return "success";
+    }
+
+    @PostMapping("/board/update")
+    public String boardUpdate(@RequestBody BoardUpdateDataDTO data){
+        boardService.saveBoard(data);
+        return "success";
+    }
+
+    @DeleteMapping("/board/delete/{id}")
+    public String deleteBoard(@PathVariable Long id){
+        boardService.deleteBoard(id);
         return "success";
     }
 }

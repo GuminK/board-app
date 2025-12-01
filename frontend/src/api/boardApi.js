@@ -12,5 +12,5 @@ export const createBoard = (data) => {
 };
 
 export const deleteBoard = (id) => {
-    return instance.delete(`/board/${id}`);
+    return instance.delete(`/board/delete/${id}`);
 }

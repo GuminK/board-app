@@ -5,10 +5,11 @@ import Test2 from './components/Test2.jsx';
 import Time from './components/Time.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Test from './tests/Test.js';
-import Header from './components/Header.js';
+import Header from './components/layout/Header.js';
 import MainPage from './pages/Mainpage.js';
-import Board from './pages/Board.js'
+import Board from './pages/BoardDetail.js'
 import BoardRegister from './pages/BoardRegister.js';
+import BoardUpdate from './pages/BoardUpdate.js';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
           <Route path="/test" element={<Test />}>
           </Route>
           <Route path="/time" element={<Time />}>
+          </Route>
+          <Route path="/board/update/:id" element={<BoardUpdate />}>
           </Route>
         </Routes>
         {/* <Footer /> */}

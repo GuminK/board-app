@@ -30,6 +30,7 @@ public class Board {
     private int hitCount;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createDate;
 
     @LastModifiedDate
@@ -37,6 +38,13 @@ public class Board {
 
     @Builder
     public Board(String title, String contents){
+        this.title = title;
+        this.contents = contents;
+    }
+
+    @Builder
+    public Board(Long id, String title, String contents){
+        this.id = id;
         this.title = title;
         this.contents = contents;
     }
