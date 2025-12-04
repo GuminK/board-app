@@ -33,6 +33,8 @@ export default function BoardRegister() {
                 contents: form.content,
             });
 
+            console.log("status:", res.status);
+
             // 성공 시 폼 초기화 및 알림
             setForm({ title: "", content: ""});
             alert("게시물이 성공적으로 등록되었습니다.");

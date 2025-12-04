@@ -1,4 +1,4 @@
-package com.example.backend.dto;
+package com.example.backend.dto.board;
 
 import com.example.backend.domain.Board;
 import lombok.Builder;

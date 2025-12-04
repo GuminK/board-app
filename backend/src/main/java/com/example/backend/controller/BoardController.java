@@ -2,8 +2,8 @@ package com.example.backend.controller;
 
 
 import com.example.backend.domain.Board;
-import com.example.backend.dto.BoardContentDataDTO;
-import com.example.backend.dto.BoardUpdateDataDTO;
+import com.example.backend.dto.board.BoardContentDataDTO;
+import com.example.backend.dto.board.BoardUpdateDataDTO;
 import com.example.backend.service.BoardService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,6 @@ public class BoardController {
     // 게시글 리스트
     @GetMapping("/board/list")
     public List<Board> boardList(){
-
         return boardService.findAll();
     }
 
@@ -36,7 +35,6 @@ public class BoardController {
     // 게시글 등록
     @PostMapping("/board/create")
     public String boardCreate(@RequestBody BoardContentDataDTO data){
-        System.out.println(data);
         boardService.saveBoard(data);
         return "success";
     }

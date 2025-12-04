@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
+@Builder
 public class Board {
     @Id @GeneratedValue
     private Long id;
@@ -36,18 +37,4 @@ public class Board {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
-
-    @Builder
-    public Board(String title, String contents){
-        this.title = title;
-        this.contents = contents;
-    }
-
-    @Builder
-    public Board(Long id, String title, String contents){
-        this.id = id;
-        this.title = title;
-        this.contents = contents;
-    }
-
 }
