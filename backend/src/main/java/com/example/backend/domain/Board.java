@@ -23,6 +23,7 @@ public class Board {
     @Column(columnDefinition = "text")
     private String contents;
 
+//    TODO: Member와 연결시켜 글 작성자로 취급할 것.
     @ColumnDefault("0")
     private Long registerId;
 

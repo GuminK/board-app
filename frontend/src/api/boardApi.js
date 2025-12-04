@@ -1,14 +1,14 @@
 import instance from './axiosInstance';
 export const getBoardList = () => {
-    return instance.get('/boardList');
+    return instance.get('/board/list');
 };
 
 export const getBoardById = (id) => {
-    return instance.get(`/board/${id}`);
+    return instance.get(`/board/detail/${id}`);
 }
 
 export const createBoard = (data) => {
-    return instance.post('/board', data);
+    return instance.post('/board/create', data);
 };
 
 export const deleteBoard = (id) => {

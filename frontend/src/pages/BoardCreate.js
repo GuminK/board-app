@@ -28,7 +28,7 @@ export default function BoardRegister() {
 
         setLoading(true);
         try {
-            const res = await instance.post("/board/register", {
+            const res = await instance.post("/board/create", {
                 title: form.title,
                 contents: form.content,
             });

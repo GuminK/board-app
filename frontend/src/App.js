@@ -1,14 +1,13 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
-import Test2 from './components/Test2.jsx';
 import Time from './components/Time.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Test from './tests/Test.js';
 import Header from './components/layout/Header.js';
-import MainPage from './pages/Mainpage.js';
+import BoardList from './pages/BoardList.js';
 import Board from './pages/BoardDetail.js'
-import BoardRegister from './pages/BoardRegister.js';
+import BoardCreate from './pages/BoardCreate.js';
 import BoardUpdate from './pages/BoardUpdate.js';
 
 
@@ -19,13 +18,12 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<>
-            <Test2/>
             <Time/>
         </>}>
           </Route>
-          <Route path="/board/new" element={<BoardRegister />}>
+          <Route path="/board/new" element={<BoardCreate />}>
           </Route>
-          <Route path="/board" element={<MainPage />}>
+          <Route path="/board" element={<BoardList />}>
           </Route>
           <Route path="/board/:id" element={<Board />}>
           </Route>

@@ -19,7 +19,7 @@ public class BoardController {
     }
 
     // 게시글 리스트
-    @GetMapping("/boardList")
+    @GetMapping("/board/list")
     public List<Board> boardList(){
 
         return boardService.findAll();
@@ -27,26 +27,28 @@ public class BoardController {
 
     
     // 특정 게시글
-    @GetMapping("/board/{id}")
+    @GetMapping("/board/detail/{id}")
     public Board boardByIdSearch(@PathVariable Long id){
         boardService.hitCountIncrease(id);
         return boardService.findById(id);
     }
 
     // 게시글 등록
-    @PostMapping("/board/register")
-    public String boardRegister(@RequestBody BoardContentDataDTO data){
+    @PostMapping("/board/create")
+    public String boardCreate(@RequestBody BoardContentDataDTO data){
         System.out.println(data);
         boardService.saveBoard(data);
         return "success";
     }
 
+    // 게시글 수정
     @PostMapping("/board/update")
     public String boardUpdate(@RequestBody BoardUpdateDataDTO data){
         boardService.saveBoard(data);
         return "success";
     }
 
+    // 게시글 삭제
     @DeleteMapping("/board/delete/{id}")
     public String deleteBoard(@PathVariable Long id){
         boardService.deleteBoard(id);
