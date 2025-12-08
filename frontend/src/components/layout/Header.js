@@ -16,7 +16,7 @@ const Header = () => {
                     <ul>
                         <li><Link to="/board">게시판</Link></li>
                         <li><Link to="/test">Test1</Link></li>
-                        <li><Link to="/services">Test2</Link></li>
+                        <li><Link to="/login">로그인</Link></li>
                         <li><Link to="/contact">Test3</Link></li>
                     </ul>
                 </nav>

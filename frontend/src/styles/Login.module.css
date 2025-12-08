@@ -1,0 +1,31 @@
+.div{
+    max-width: 800px; 
+    margin: 24px auto; 
+    padding: 16px;
+}
+
+.input{
+    width: 30%; 
+    padding: 8px; 
+    margin: 8px 0; 
+    box-sizing: border-box; 
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.error {
+    color : red;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.button {
+    background-color: rgb(0, 0, 0); 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    margin-top: 12px;
+    margin-right: 8px;
+}

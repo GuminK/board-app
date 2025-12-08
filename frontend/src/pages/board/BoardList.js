@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getBoardList } from '../api/boardApi';
+import { getBoardList } from '../../api/boardApi';
 import dayjs from 'dayjs'
 
 export default function BoardList() {

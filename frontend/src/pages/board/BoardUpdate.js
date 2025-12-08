@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import instance from '../api/axiosInstance';
+import React, { useEffect, useState } from "react";
+import { getBoardById } from '../../api/boardApi';
+import { useParams } from 'react-router-dom';
+import instance from '../../api/axiosInstance';
 
-export default function BoardRegister() {
+export default function BoardUpdate() {
+
     const [form, setForm] = useState({
         title: "",
         content: "",
@@ -13,6 +16,23 @@ export default function BoardRegister() {
         const { name, value } = e.target;
         setForm((prev) => ({ ...prev, [name]: value }));
     }
+
+    const boardId = useParams().id;
+
+    useEffect(() => {
+            const fetchBoardById = async () => {
+            try {
+                const response = await getBoardById(boardId);
+                setForm({
+                    title: response.data.title,
+                    content: response.data.contents,
+                });
+            } catch (error){
+                console.error("Failed to fetch board by id:", error);
+            }
+        };
+            fetchBoardById();
+        }, [boardId]);
 
 
     // 등록 버튼 클릭 시 호출   
@@ -28,20 +48,19 @@ export default function BoardRegister() {
 
         setLoading(true);
         try {
-            const res = await instance.post("/board/create", {
+            await instance.post("/board/update", {
+                id: boardId,
                 title: form.title,
                 contents: form.content,
             });
 
-            console.log("status:", res.status);
-
             // 성공 시 폼 초기화 및 알림
             setForm({ title: "", content: ""});
-            alert("게시물이 성공적으로 등록되었습니다.");
+            alert("게시물이 성공적으로 수정되었습니다.");
             // 게시판 목록 페이지로 이동
-            window.location.href = "/board";
+            window.location.href = "/board/" + boardId;
         } catch (err) {
-            setError(err.message || "게시물 등록에 실패했습니다.");
+            setError(err.message || "게시물 수정에 실패했습니다.");
         } finally {
             setLoading(false);
         }
@@ -65,7 +84,6 @@ export default function BoardRegister() {
                     value={form.content}
                     onChange={handleChange}
                     rows={8}
-                    style={{ width: "100%", padding: 8 }}
                     disabled={loading}
                 />
 

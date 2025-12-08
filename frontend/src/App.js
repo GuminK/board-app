@@ -5,10 +5,12 @@ import Time from './components/Time.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Test from './tests/Test.js';
 import Header from './components/layout/Header.js';
-import BoardList from './pages/BoardList.js';
-import Board from './pages/BoardDetail.js'
-import BoardCreate from './pages/BoardCreate.js';
-import BoardUpdate from './pages/BoardUpdate.js';
+import BoardList from './pages/board/BoardList.js';
+import Board from './pages/board/BoardDetail.js'
+import BoardCreate from './pages/board/BoardCreate.js';
+import BoardUpdate from './pages/board/BoardUpdate.js';
+import Login from './pages/login/Login.js';
+import Register from './pages/login/Register.js';
 
 
 function App() {
@@ -32,6 +34,10 @@ function App() {
           <Route path="/time" element={<Time />}>
           </Route>
           <Route path="/board/update/:id" element={<BoardUpdate />}>
+          </Route>
+          <Route path="/login" element={<Login />}>
+          </Route>
+          <Route path="/register" element={<Register />}>
           </Route>
         </Routes>
         {/* <Footer /> */}

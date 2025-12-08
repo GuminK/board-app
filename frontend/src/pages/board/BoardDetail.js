@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { deleteBoard, getBoardById } from '../api/boardApi';
+import { deleteBoard, getBoardById } from '../../api/boardApi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function Board() {
