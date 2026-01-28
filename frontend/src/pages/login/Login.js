@@ -22,10 +22,12 @@ export default function Login() {
             }
             else {
                 alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
+                setError(res.message);
                 navigate('/login');
             }
         } catch (error) {
-            setError(error);
+            const msg = error.response?.data || '로그인 중 오류가 발생했습니다.';
+            setError(msg);
         }
     }
 
@@ -39,7 +41,7 @@ export default function Login() {
             <button className={styles.button}type="submit">로그인</button>
             <button className={styles.button} type="button" onClick={() => navigate('/register')}>회원가입</button>
         </form>
-        {error && <p className ={styles.error}>{error}</p>}
+        {error && <p className ={styles.error}>{error?.response?.data?.message ?? error.message}</p>}
         
         </div>;
 }

@@ -4,7 +4,7 @@ const Time = () => {
     const [time, setTime] = React.useState("");
     
     useEffect(() => {
-        fetch("http://localhost:8080/api/time", {
+        fetch("/api/time", {
             method: "GET"
         })
         .then(res => {

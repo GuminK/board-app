@@ -19,26 +19,15 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<>
-            <Time/>
-        </>}>
-          </Route>
-          <Route path="/board/new" element={<BoardCreate />}>
-          </Route>
-          <Route path="/board" element={<BoardList />}>
-          </Route>
-          <Route path="/board/:id" element={<Board />}>
-          </Route>
-          <Route path="/test" element={<Test />}>
-          </Route>
-          <Route path="/time" element={<Time />}>
-          </Route>
-          <Route path="/board/update/:id" element={<BoardUpdate />}>
-          </Route>
-          <Route path="/login" element={<Login />}>
-          </Route>
-          <Route path="/register" element={<Register />}>
-          </Route>
+          <Route path="/" element={<><Time/></>}></Route>
+          <Route path="/board/new" element={<BoardCreate />}></Route>
+          <Route path="/board" element={<BoardList />}></Route>
+          <Route path="/board/:id" element={<Board />}></Route>
+          <Route path="/test" element={<Test />}></Route>
+          <Route path="/time" element={<Time />}></Route>
+          <Route path="/board/update/:id" element={<BoardUpdate />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

@@ -25,13 +25,10 @@ public class LoginController {
 
     @PostMapping("/register")
     public String userRegister(@RequestBody MemberResponseDTO data){
-        System.out.println(data.getMemberId());
-        System.out.println(data.getMemberPw());
-        System.out.println(data.getMemberName());
-
+        // 넘어온 data로 회원가입 시도
         String msg = memberService.userRegister(data);
-        if(msg.equals("null")){
-            return "register fail";
+        if(msg.equals("already exist")){
+            return "register fail, already exist";
         }
         return "register success";
     }

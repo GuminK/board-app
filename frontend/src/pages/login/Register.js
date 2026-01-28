@@ -30,14 +30,20 @@ export default function Register() {
                 alert('회원가입에 성공했습니다.');
                 navigate('/');
             }
+            else if (res.data === "register fail, already exist"){
+                alert('이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.');
+                setError("이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.");
+                navigate('/register');
+            }
             else {
                 alert('회원가입에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
-                navigate('/register');
+                // navigate('/register');
                 console.log(res);
                 setError(res.message);
             }
         } catch (error) {
-            setError(error);
+            const msg = error.response?.data || '회원가입 중 오류가 발생했습니다.';
+            setError(msg);
         }
     }
 
@@ -52,7 +58,7 @@ export default function Register() {
             <br></br>
             <input className={styles.input} type="text" name="userName" placeholder="이름" />
             <br></br>
-            {error && <p className={styles.error}>{error}</p>}
+            {error && <p className={styles.error}>{error?.response?.data?.message ?? error.message}</p>}
             <button className={styles.button}type="submit">회원가입</button>
         </form>
     </div>;
