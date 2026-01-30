@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { deleteBoard, getBoardById } from '../../api/boardApi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-export default function Board() {
+export default function BoardDetail() {
     // 게시글 ID 가져오기
     const boardId = useParams().id;
 

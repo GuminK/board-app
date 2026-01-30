@@ -15,10 +15,10 @@ export default function Login() {
         const memberPw = formData.get('password');
         try {
             const res = await instance.post('/login', { memberId, memberPw});
-            if(res.data === "login success"){
+            if(res.status === 200){
                 alert('로그인에 성공했습니다.');
                 navigate('/');
-
+                navigate(0); // 페이지 새로고침
             }
             else {
                 alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');

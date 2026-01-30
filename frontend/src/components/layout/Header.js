@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../styles/Header.module.css';
 import { Link } from 'react-router-dom';
+import MeBox from '../MeBox';
 
 const Header = () => {
 
@@ -18,6 +19,7 @@ const Header = () => {
                         <li><Link to="/test">Test1</Link></li>
                         <li><Link to="/login">로그인</Link></li>
                         <li><Link to="/contact">Test3</Link></li>
+                        <MeBox />
                     </ul>
                 </nav>
             </div>

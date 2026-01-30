@@ -26,6 +26,10 @@ public class MemberService {
         return memberRepository.findByMemberIdAndMemberPw(memberId, memberPw);
     }
 
+    public Member findMemberByMemberId(String memberId){
+        return memberRepository.findByMemberId(memberId);
+    }
+
     public boolean userLogin(LoginInfoDto data){
         Member findMember = memberRepository.findByMemberId(data.getMemberId());
         if(findMember == null){
@@ -42,6 +46,7 @@ public class MemberService {
             // 전달 받은 data의 비밀번호 encode
             String encodePw = passwordEncoder.encode(data.getMemberPw());
 
+            // 일단 roleType을 USER로 저장
             Member member = Member.builder()
                     .memberId(data.getMemberId())
                     .memberPw(encodePw)
