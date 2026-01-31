@@ -1,7 +1,7 @@
 import instance from './axiosInstance';
 
 export const fetchMe = () => {
-    return instance.get('/me');
+    return instance.get('/myInfo');
 }
 
 export const apiLogout = () => {

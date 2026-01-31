@@ -73,7 +73,7 @@ public class LoginController {
         return ResponseEntity.ok(Map.of("message", "logout success"));
     }
 
-    @GetMapping("/me")
+    @GetMapping("/myInfo")
     public ResponseEntity<?> me(Authentication authentication){
         if(authentication == null){
             return ResponseEntity.status(401).body(Map.of("message", "Not logged in"));
