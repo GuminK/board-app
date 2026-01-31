@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/Header.module.css';
 import { Link } from 'react-router-dom';
-import MeBox from '../MeBox';
 import { useAuth } from '../../context/AuthContext';
-import { apiLogout } from '../../api/authApi';
 
 const Header = () => {
     const {me, logout, loading} = useAuth();
@@ -15,7 +13,6 @@ const Header = () => {
         try{
             await logout();
             setIsLogout(true);
-            alert("로그아웃 되었습니다.");
         } catch (err) {
             alert("로그아웃 중 오류가 발생했습니다.");
         } finally {
@@ -38,7 +35,6 @@ const Header = () => {
                         {!loading && !me && <li><Link to="/login">로그인</Link></li>}
                         {!loading && me && <li><button type="button" onClick={handleLogout} disabled={isLogout}>로그아웃</button></li>}
                         <li><Link to="/contact">Test3</Link></li>
-                        {/* <li><MeBox /></li> */}
                     </ul>
                 </nav>
             </div>

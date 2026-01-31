@@ -37,7 +37,6 @@ export function AuthProvider({ children }) {
             // 로그아웃 실패
             console.warn("[logout] failed", err);
             setMe(null);
-
             // await refreshMe(); 서버 상태 재확인 
 
             throw err;

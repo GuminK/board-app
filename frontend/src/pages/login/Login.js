@@ -16,7 +16,6 @@ export default function Login() {
         try {
             const res = await instance.post('/login', { memberId, memberPw});
             if(res.status === 200){
-                alert('로그인에 성공했습니다.');
                 navigate('/');
                 navigate(0); // 페이지 새로고침
             }
