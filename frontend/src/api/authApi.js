@@ -4,6 +4,6 @@ export const fetchMe = () => {
     return instance.get('/me');
 }
 
-export const logout = () => {
+export const apiLogout = () => {
     return instance.post('/logout');
 }

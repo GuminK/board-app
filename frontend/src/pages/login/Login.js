@@ -41,7 +41,8 @@ export default function Login() {
             <button className={styles.button}type="submit">로그인</button>
             <button className={styles.button} type="button" onClick={() => navigate('/register')}>회원가입</button>
         </form>
-        {error && <p className ={styles.error}>{error?.response?.data?.message ?? error.message}</p>}
+        {/* {error && <p className ={styles.error}>{error?.response?.data?.message ?? error.message}</p>} */}
+        {error && <p className ={styles.error}>{error ?? error.message}</p>}
         
         </div>;
 }

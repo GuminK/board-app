@@ -69,3 +69,37 @@
     transform: translateY(-2px);
 }
 
+
+.navMenu button {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+
+    /* button 기본 스타일 제거 */
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.navMenu button:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s ease;
+}
+
+.navMenu button:hover:after {
+    width: 100%;
+}
+
+.navMenu button:hover {
+    transform: translateY(-2px);
+}
