@@ -11,6 +11,7 @@ import BoardCreate from './pages/board/BoardCreate.js';
 import BoardUpdate from './pages/board/BoardUpdate.js';
 import Login from './pages/login/Login.js';
 import Register from './pages/login/Register.js';
+import MyInfoPage from './pages/login/MyInfoPage.js';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/board/update/:id" element={<BoardUpdate />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/myinfo" element={<MyInfoPage />}></Route>
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

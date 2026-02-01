@@ -1,5 +1,6 @@
 package com.example.backend.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +17,8 @@ public class SecurityConfig{
                 // CSRF 일단 비활성화
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/", "/index.html", "/favicon.ico", "/manifest.json", "/robots.txt", "/static/**").permitAll()
                         .requestMatchers("/login", "/logout", "/register", "/me", "/board/list").permitAll()
                         .requestMatchers("/board/detail/**").permitAll()
                         .requestMatchers("/board/create", "/board/update").authenticated()
