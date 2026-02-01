@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import instance from '../../api/axiosInstance';
+import { useAuth } from '../../context/AuthContext';
 
 export default function BoardRegister() {
     const [form, setForm] = useState({

@@ -21,7 +21,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<><Time/></>}></Route>
-          <Route path="/board/new" element={<BoardCreate />}></Route>
+          <Route path="/board/create" element={<BoardCreate />}></Route>
           <Route path="/board" element={<BoardList />}></Route>
           <Route path="/board/:id" element={<BoardDetail />}></Route>
           <Route path="/test" element={<Test />}></Route>

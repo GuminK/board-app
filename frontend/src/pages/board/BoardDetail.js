@@ -15,7 +15,7 @@ export default function BoardDetail() {
         try {
             const response = await getBoardById(boardId);
             setBoard(response.data);
-            
+            console.log("Fetched board:", response.data);
         } catch (error){
             console.error("Failed to fetch board by id:", error);
         } finally {

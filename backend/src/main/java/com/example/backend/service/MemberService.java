@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class MemberService {
     @Autowired
@@ -21,6 +23,9 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    public Optional<Member> findMemberById(Long id){
+        return memberRepository.findById(id);
+    }
 
     public Member findMemberByMemberIdAndMemberPw(String memberId, String memberPw){
         return memberRepository.findByMemberIdAndMemberPw(memberId, memberPw);

@@ -1,6 +1,7 @@
 package com.example.backend.dto.board;
 
 import com.example.backend.domain.Board;
+import com.example.backend.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ public class BoardResponseDTO {
     private Long id;
     private String title;
     private String contents;
-    private Long registerId;
+    private String memberName;
     private int hitCount;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
@@ -23,7 +24,7 @@ public class BoardResponseDTO {
         this.id = board.getId();
         this.title = board.getTitle();
         this.contents = board.getContents();
-        this.registerId = board.getRegisterId();
+        this.memberName = board.getMember().getMemberName();
         this.hitCount = board.getHitCount();
         this.createDate = board.getCreateDate();
         this.lastModifiedDate = board.getLastModifiedDate();

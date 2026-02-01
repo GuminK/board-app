@@ -24,9 +24,10 @@ public class Board {
     @Column(columnDefinition = "text")
     private String contents;
 
-//    TODO: Member와 연결시켜 글 작성자로 취급할 것.
-    @ColumnDefault("0")
-    private Long registerId;
+    // 기존에 registerId를 쓴 이유는 Member를 안만든 상태에서 테스트했기 때문에 이제 Member로 바로 연결
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "register_id", nullable = false)
+    private Member member;
 
     @ColumnDefault("0")
     private int hitCount;
