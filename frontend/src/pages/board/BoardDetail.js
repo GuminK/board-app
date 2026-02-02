@@ -55,6 +55,7 @@ export default function BoardDetail() {
             <div style={{ marginBottom: 12 }}>
                 <span>제목: {board.title} </span>
                 <span>조회수: {board.hitCount}</span>
+                <span>작성자: {board.memberName}</span>
             </div>
             <hr></hr>
             <div style={{ whiteSpace: "pre-line" }}> {board.contents}</div>
