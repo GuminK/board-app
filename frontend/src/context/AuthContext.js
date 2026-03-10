@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { fetchMe, apiLogout } from "../api/authApi";
+import { fetchMyInfo, apiLogout } from "../api/authApi";
 
 const AuthContext = createContext(null);
 
@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
         setLoading(true);
 
         try{
-            const res = await fetchMe();
+            const res = await fetchMyInfo();
             setMe(res.data);
             return res.data;
         } catch (err) {

@@ -1,6 +1,6 @@
 import instance from './axiosInstance';
 
-export const fetchMe = () => {
+export const fetchMyInfo = () => {
     return instance.get('/myInfo');
 }
 
