@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BoardController {
@@ -48,28 +49,24 @@ public class BoardController {
 
     // 게시글 등록
     @PostMapping("/board/create")
-    public String boardCreate(@RequestBody BoardContentDataDTO data, Authentication authentication){
-
-        System.out.println("글 작성자: " + authentication.getName());
+    public ResponseEntity<?> boardCreate(@RequestBody BoardContentDataDTO data, Authentication authentication){
         Member authMember = memberService.findMemberByMemberId(authentication.getName());
 
-        System.out.println("authMember: " + authMember);
-
         boardService.saveBoard(data, authMember);
-        return "success";
+        return ResponseEntity.ok(Map.of("message", "success"));
     }
 
     // 게시글 수정
     @PostMapping("/board/update")
-    public String boardUpdate(@RequestBody BoardUpdateDataDTO data){
-        boardService.saveBoard(data);
-        return "success";
+    public ResponseEntity<?> boardUpdate(@RequestBody BoardUpdateDataDTO data, Authentication authentication){
+        boardService.updateBoard(data, authentication.getName());
+        return ResponseEntity.ok(Map.of("message", "success"));
     }
 
     // 게시글 삭제
     @DeleteMapping("/board/delete/{id}")
-    public String deleteBoard(@PathVariable Long id){
-        boardService.deleteBoard(id);
-        return "success";
+    public ResponseEntity<?> deleteBoard(@PathVariable Long id, Authentication authentication){
+        boardService.deleteBoard(id, authentication.getName());
+        return ResponseEntity.ok(Map.of("message", "success"));
     }
 }

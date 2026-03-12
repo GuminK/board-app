@@ -11,6 +11,10 @@ export const createBoard = (data) => {
     return instance.post('/board/create', data);
 };
 
+export const updateBoard = (id, data) => {
+    return instance.put(`/board/update/${id}`, data);
+}
+
 export const deleteBoard = (id) => {
     return instance.delete(`/board/delete/${id}`);
 }

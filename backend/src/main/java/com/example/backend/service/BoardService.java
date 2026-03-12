@@ -8,6 +8,7 @@ import com.example.backend.dto.board.BoardUpdateDataDTO;
 import com.example.backend.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public class BoardService {
         Optional<Board> optionalBoard = boardRepository.findById(id);
         return optionalBoard.orElse(null);
     }
+
+
 
     public void hitCountIncrease(Long id){
         Optional<Board> optionalBoard = boardRepository.findById(id);
@@ -59,7 +62,31 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public void deleteBoard(Long id){
-        boardRepository.deleteById(id);
+    public void updateBoard(BoardUpdateDataDTO data, String currentMemberId){
+        Board board = findByIdOrThrow(data.getId());
+
+        validateOwner(board, currentMemberId);
+
+        board.setTitle(data.getTitle());
+        board.setContents(data.getContents());
+        boardRepository.save(board);
+    }
+
+    public void deleteBoard(Long boardId, String currentMemberId){
+        Board board = findByIdOrThrow(boardId);
+        validateOwner(board, currentMemberId);
+
+        boardRepository.delete(board);
+    }
+
+    public void validateOwner(Board board, String currentMemberId){
+        if(board.getMember() == null || !board.getMember().getMemberId().equals(currentMemberId)) {
+            throw new AccessDeniedException("You do not have permission to modify this board");
+        }
+    }
+
+    public Board findByIdOrThrow(Long id){
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Board not found. id=" + id));
     }
 }
