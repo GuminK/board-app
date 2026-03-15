@@ -19,7 +19,7 @@ public class SecurityConfig{
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/index.html", "/favicon.ico", "/manifest.json", "/robots.txt", "/static/**").permitAll()
-                        .requestMatchers("/login", "/logout", "/register", "/myInfo", "/board/list").permitAll()
+                        .requestMatchers("/api/login", "/api/logout", "/api/register", "/api/myInfo", "/board/list").permitAll()
                         .requestMatchers("/board/detail/**").permitAll()
                         .requestMatchers("/board/create", "/board/update").authenticated()
                         .anyRequest().authenticated()

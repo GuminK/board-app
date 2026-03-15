@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import instance from '../../api/axiosInstance';
+import { apiLogin } from '../../api/authApi';
 import styles from '../../styles/Login.module.css';
 import { useState } from 'react';
 
@@ -14,7 +14,7 @@ export default function Login() {
         const memberId = formData.get('userId');
         const memberPw = formData.get('password');
         try {
-            const res = await instance.post('/login', { memberId, memberPw});
+            const res = await apiLogin(memberId, memberPw);
             if(res.status === 200){
                 navigate('/');
                 navigate(0); // 페이지 새로고침

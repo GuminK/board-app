@@ -1,4 +1,4 @@
-package com.example.backend.controller.login;
+package com.example.backend.controller.api;
 
 import com.example.backend.dto.member.LoginInfoDto;
 import com.example.backend.dto.member.MemberResponseDTO;
@@ -24,18 +24,18 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class LoginController {
+public class AuthController {
     private final MemberService memberService;
     private final AuthenticationManager authenticationManager;
 
     private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
-    public LoginController(MemberService memberService, AuthenticationManager authenticationManager) {
+    public AuthController(MemberService memberService, AuthenticationManager authenticationManager) {
         this.memberService = memberService;
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/api/register")
     public String userRegister(@RequestBody MemberResponseDTO data){
         // 넘어온 data로 회원가입 시도
         String msg = memberService.userRegister(data);
@@ -45,7 +45,7 @@ public class LoginController {
         return "register success";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public ResponseEntity<?> userLogin(@RequestBody LoginInfoDto data, HttpServletRequest request, HttpServletResponse response){
 
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.getMemberId(), data.getMemberPw()));
@@ -59,7 +59,7 @@ public class LoginController {
         return ResponseEntity.ok(Map.of("message", "login success", "memberId", auth.getName()));
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/api/logout")
     public ResponseEntity<?> userLogout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextHolder.clearContext();
 
@@ -73,7 +73,7 @@ public class LoginController {
         return ResponseEntity.ok(Map.of("message", "logout success"));
     }
 
-    @GetMapping("/myInfo")
+    @GetMapping("/api/myInfo")
     public ResponseEntity<?> me(Authentication authentication){
         if(authentication == null){
             return ResponseEntity.status(401).body(Map.of("message", "Not logged in"));

@@ -1,4 +1,4 @@
-package com.example.backend.controller;
+package com.example.backend.controller.api;
 
 
 import com.example.backend.domain.Board;

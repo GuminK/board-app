@@ -1,6 +1,5 @@
-package com.example.backend.controller;
+package com.example.backend.controller.api;
 
-import com.example.backend.domain.Member;
 import com.example.backend.dto.member.MemberDTO;
 import com.example.backend.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +13,10 @@ import java.time.format.DateTimeFormatter;
 
 @RestController
 @Slf4j
-public class ApiController {
+public class MemberController {
     private final MemberService memberService;
 
-    public ApiController(MemberService memberService){
+    public MemberController(MemberService memberService){
         this.memberService = memberService;
     }
 

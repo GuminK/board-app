@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/Login.module.css'
 import { useState } from 'react';
-import instance from '../../api/axiosInstance';
+import { apiRegister } from '../../api/authApi';
 
 
 export default function Register() {
@@ -24,7 +24,7 @@ export default function Register() {
 
 
         try {
-            const res = await instance.post('/register', { memberId, memberPw, memberName});
+            const res = await apiRegister(memberId, memberPw, memberName);
             console.log(res.data);
             if(res.data === "register success"){
                 alert('회원가입에 성공했습니다.');
