@@ -18,16 +18,18 @@ public class SecurityConfig{
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/index.html", "/favicon.ico", "/manifest.json", "/robots.txt", "/static/**").permitAll()
-                        .requestMatchers("/api/login", "/api/logout", "/api/register", "/api/myInfo", "/api/board/list").permitAll()
-                        .requestMatchers("/api/board/detail/**").permitAll()
-                        .requestMatchers("/api/board/create", "/api/board/update").authenticated()
+                        // Spring에서 React를 배포할 때 필요
+                        // 가끔 Build 초기화가 안되는데 브라우저에서 Ctrl+Shift+R로 캐시 지우고 Build파일 다시 넣기
+                        .requestMatchers("/", "/index.html", "/favicon.ico", "/manifest.json", "/robots.txt", "/static/**", "/logo192.png", "/logo512.png").permitAll()
+                        // 로그인이 필요없는 api
+                        .requestMatchers("/api/login", "/api/logout", "/api/register", "/api/board/list", "/api/board/detail/**").permitAll()
+                        // 로그인이 필요한 api
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 // 스프링 기본 로그인 폼 비활성화
                 .formLogin(form -> form.disable())
                 .logout(logout -> logout.disable())
-//                .httpBasic(Customizer.withDefaults())
                 .httpBasic(basic -> basic.disable())
                 .build();
     }

@@ -2,20 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getBoardList } from '../../api/boardApi';
 import dayjs from 'dayjs'
-import { getMemberById } from '../../api/memberApi';
 
 export default function BoardList() {
-    // const [author, setAuthor] = useState(null);
-
-    // const getMemberNameById = async (id) => {
-    //     try {
-    //         const response = await getMemberById(id);
-    //         setAuthor(response.data);
-    //     } catch (error) {
-    //         console.error("Failed to fetch member By id: ", error);
-    //     }
-    // }
-
     const [boardList, setBoardList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

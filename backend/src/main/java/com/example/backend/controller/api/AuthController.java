@@ -61,14 +61,13 @@ public class AuthController {
 
     @PostMapping("/api/logout")
     public ResponseEntity<?> userLogout(HttpServletRequest request, HttpServletResponse response) {
+        // SecurityContext 비우기
         SecurityContextHolder.clearContext();
-
+        // Session 없애기
         HttpSession session = request.getSession(false);
         if(session != null){
             session.invalidate();
         }
-
-        System.out.println("로그아웃 되었음.");
 
         return ResponseEntity.ok(Map.of("message", "logout success"));
     }

@@ -29,7 +29,7 @@ function App() {
           <Route path="/board/update/:id" element={<BoardUpdate />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/myinfo" element={<MyInfoPage />}></Route>
+          <Route path="/myInfo" element={<MyInfoPage />}></Route>
           <Route path="*" element={<h1>404 Not Found</h1>}></Route>
         </Routes>
         {/* <Footer /> */}
