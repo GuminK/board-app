@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getBoardById } from '../../api/boardApi';
 import { useParams } from 'react-router-dom';
-import instance from '../../api/axiosInstance';
+import { updateBoard } from '../../api/boardApi';
 
 export default function BoardUpdate() {
 
@@ -48,11 +48,13 @@ export default function BoardUpdate() {
 
         setLoading(true);
         try {
-            await instance.post("/board/update", {
-                id: boardId,
-                title: form.title,
-                contents: form.content,
-            });
+            // await instance.post("/board/update", {
+            //     id: boardId,
+            //     title: form.title,
+            //     contents: form.content,
+            // });
+            await updateBoard({id: boardId, title: form.title, contents: form.content});
+
 
             // 성공 시 폼 초기화 및 알림
             setForm({ title: "", content: ""});

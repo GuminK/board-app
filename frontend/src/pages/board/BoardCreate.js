@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import instance from '../../api/axiosInstance';
-import { useAuth } from '../../context/AuthContext';
+import { createBoard } from '../../api/boardApi';
 
 export default function BoardRegister() {
     const [form, setForm] = useState({
@@ -29,10 +28,7 @@ export default function BoardRegister() {
 
         setLoading(true);
         try {
-            const res = await instance.post("/board/create", {
-                title: form.title,
-                contents: form.content,
-            });
+            const res = await createBoard({ title: form.title, contents: form.content });
 
             console.log("status:", res.status);
 

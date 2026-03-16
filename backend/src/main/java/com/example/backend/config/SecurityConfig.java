@@ -14,14 +14,14 @@ public class SecurityConfig{
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                // CSRF 일단 비활성화
+                // CSRF 비활성화
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/index.html", "/favicon.ico", "/manifest.json", "/robots.txt", "/static/**").permitAll()
-                        .requestMatchers("/api/login", "/api/logout", "/api/register", "/api/myInfo", "/board/list").permitAll()
-                        .requestMatchers("/board/detail/**").permitAll()
-                        .requestMatchers("/board/create", "/board/update").authenticated()
+                        .requestMatchers("/api/login", "/api/logout", "/api/register", "/api/myInfo", "/api/board/list").permitAll()
+                        .requestMatchers("/api/board/detail/**").permitAll()
+                        .requestMatchers("/api/board/create", "/api/board/update").authenticated()
                         .anyRequest().authenticated()
                 )
                 // 스프링 기본 로그인 폼 비활성화

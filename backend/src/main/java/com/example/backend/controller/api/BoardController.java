@@ -28,14 +28,14 @@ public class BoardController {
     }
 
     // 게시글 리스트
-    @GetMapping("/board/list")
+    @GetMapping("/api/board/list")
     public ResponseEntity<List<BoardListDTO>> boardList(){
         return ResponseEntity.ok(boardService.findAllListDTO());
     }
 
 
     // 특정 게시글
-    @GetMapping("/board/detail/{id}")
+    @GetMapping("/api/board/detail/{id}")
     public ResponseEntity<BoardResponseDTO> boardByIdSearch(@PathVariable Long id){
         boardService.hitCountIncrease(id);
 
@@ -48,7 +48,7 @@ public class BoardController {
     }
 
     // 게시글 등록
-    @PostMapping("/board/create")
+    @PostMapping("/api/board/create")
     public ResponseEntity<?> boardCreate(@RequestBody BoardContentDataDTO data, Authentication authentication){
         Member authMember = memberService.findMemberByMemberId(authentication.getName());
 
@@ -57,14 +57,14 @@ public class BoardController {
     }
 
     // 게시글 수정
-    @PostMapping("/board/update")
+    @PutMapping("/api/board/update")
     public ResponseEntity<?> boardUpdate(@RequestBody BoardUpdateDataDTO data, Authentication authentication){
         boardService.updateBoard(data, authentication.getName());
         return ResponseEntity.ok(Map.of("message", "success"));
     }
 
     // 게시글 삭제
-    @DeleteMapping("/board/delete/{id}")
+    @DeleteMapping("/api/board/delete/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long id, Authentication authentication){
         boardService.deleteBoard(id, authentication.getName());
         return ResponseEntity.ok(Map.of("message", "success"));
