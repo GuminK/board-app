@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardListDTO {
+public class BoardListItemResponse {
     // 게시물 목록 불러올 때 필요한 데이터
     Long id;
     String title;

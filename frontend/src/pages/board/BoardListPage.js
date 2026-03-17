@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getBoardList } from '../../api/boardApi';
 import dayjs from 'dayjs'
 
-export default function BoardList() {
+export default function BoardListPage() {
     const [boardList, setBoardList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ export default function BoardList() {
         <div className="main-page">
             <main style={{ maxWidth: 800, margin: "24px auto", padding: 16 }}>
                 <section className="boardList">
-                    <h1>게시판 목록</h1>
+                    <h1>게시글 목록</h1>
                     <Link to ="/board/create">새 글 작성</Link>
                     <br></br>
                     {loading && <p>게시물을 불러오는 중입니다.</p>}

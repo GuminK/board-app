@@ -2,9 +2,9 @@ package com.example.backend.service;
 
 import com.example.backend.domain.Board;
 import com.example.backend.domain.Member;
-import com.example.backend.dto.board.BoardContentDataDTO;
-import com.example.backend.dto.board.BoardListDTO;
-import com.example.backend.dto.board.BoardUpdateDataDTO;
+import com.example.backend.dto.board.BoardCreateRequest;
+import com.example.backend.dto.board.BoardListItemResponse;
+import com.example.backend.dto.board.BoardUpdateRequest;
 import com.example.backend.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -23,7 +23,7 @@ public class BoardService {
         return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
-    public List<BoardListDTO> findAllListDTO(){
+    public List<BoardListItemResponse> findAllListDTO(){
         return boardRepository.findBoardListDTO();
     }
 
@@ -43,7 +43,7 @@ public class BoardService {
         }
     }
 
-    public void saveBoard(BoardContentDataDTO data, Member authMember){
+    public void saveBoard(BoardCreateRequest data, Member authMember){
 //        Board board = new Board(data.getTitle(),data.getContents());
         Board board = Board.builder()
                 .title(data.getTitle())
@@ -53,7 +53,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public void saveBoard(BoardUpdateDataDTO data){
+    public void saveBoard(BoardUpdateRequest data){
         Board board = boardRepository.findById(data.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Board not found. id=" + data.getId()));
 
@@ -62,7 +62,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public void updateBoard(BoardUpdateDataDTO data, String currentMemberId){
+    public void updateBoard(BoardUpdateRequest data, String currentMemberId){
         Board board = findByIdOrThrow(data.getId());
 
         validateOwner(board, currentMemberId);

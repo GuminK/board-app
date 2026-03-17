@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardUpdateDataDTO {
-    private Long id;
+public class BoardCreateRequest {
     private String title;
     private String contents;
 }

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { apiRegister } from '../../api/authApi';
 
 
-export default function Register() {
+export default function RegisterPage() {
 
     const navigate = useNavigate();
     const [error, setError] = useState(null);

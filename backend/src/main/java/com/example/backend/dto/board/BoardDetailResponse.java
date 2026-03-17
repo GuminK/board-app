@@ -1,7 +1,6 @@
 package com.example.backend.dto.board;
 
 import com.example.backend.domain.Board;
-import com.example.backend.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class BoardResponseDTO {
+public class BoardDetailResponse {
     private Long id;
     private String title;
     private String contents;
@@ -20,7 +19,7 @@ public class BoardResponseDTO {
     private LocalDateTime lastModifiedDate;
 
     @Builder
-    public BoardResponseDTO(Board board){
+    public BoardDetailResponse(Board board){
         this.id = board.getId();
         this.title = board.getTitle();
         this.contents = board.getContents();

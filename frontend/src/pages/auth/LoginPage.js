@@ -3,7 +3,7 @@ import { apiLogin } from '../../api/authApi';
 import styles from '../../styles/Login.module.css';
 import { useState } from 'react';
 
-export default function Login() {
+export default function LoginPage() {
 
     const navigate = useNavigate();
     const [error, setError] = useState(null);

@@ -3,10 +3,10 @@ package com.example.backend.controller.api;
 
 import com.example.backend.domain.Board;
 import com.example.backend.domain.Member;
-import com.example.backend.dto.board.BoardContentDataDTO;
-import com.example.backend.dto.board.BoardListDTO;
-import com.example.backend.dto.board.BoardResponseDTO;
-import com.example.backend.dto.board.BoardUpdateDataDTO;
+import com.example.backend.dto.board.BoardCreateRequest;
+import com.example.backend.dto.board.BoardListItemResponse;
+import com.example.backend.dto.board.BoardDetailResponse;
+import com.example.backend.dto.board.BoardUpdateRequest;
 import com.example.backend.service.BoardService;
 import com.example.backend.service.MemberService;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/board")
 public class BoardController {
 
     private final BoardService boardService;
@@ -28,15 +29,15 @@ public class BoardController {
     }
 
     // 게시글 리스트
-    @GetMapping("/api/board/list")
-    public ResponseEntity<List<BoardListDTO>> boardList(){
+    @GetMapping("/list")
+    public ResponseEntity<List<BoardListItemResponse>> boardList(){
         return ResponseEntity.ok(boardService.findAllListDTO());
     }
 
 
     // 특정 게시글
-    @GetMapping("/api/board/detail/{id}")
-    public ResponseEntity<BoardResponseDTO> boardByIdSearch(@PathVariable Long id){
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<BoardDetailResponse> boardByIdSearch(@PathVariable Long id){
         boardService.hitCountIncrease(id);
 
         Board board = boardService.findById(id);
@@ -44,12 +45,12 @@ public class BoardController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(new BoardResponseDTO(board));
+        return ResponseEntity.ok(new BoardDetailResponse(board));
     }
 
     // 게시글 등록
-    @PostMapping("/api/board/create")
-    public ResponseEntity<?> boardCreate(@RequestBody BoardContentDataDTO data, Authentication authentication){
+    @PostMapping("/create")
+    public ResponseEntity<?> boardCreate(@RequestBody BoardCreateRequest data, Authentication authentication){
         Member authMember = memberService.findMemberByMemberId(authentication.getName());
 
         boardService.saveBoard(data, authMember);
@@ -57,14 +58,14 @@ public class BoardController {
     }
 
     // 게시글 수정
-    @PutMapping("/api/board/update")
-    public ResponseEntity<?> boardUpdate(@RequestBody BoardUpdateDataDTO data, Authentication authentication){
+    @PutMapping("/update")
+    public ResponseEntity<?> boardUpdate(@RequestBody BoardUpdateRequest data, Authentication authentication){
         boardService.updateBoard(data, authentication.getName());
         return ResponseEntity.ok(Map.of("message", "success"));
     }
 
     // 게시글 삭제
-    @DeleteMapping("/api/board/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long id, Authentication authentication){
         boardService.deleteBoard(id, authentication.getName());
         return ResponseEntity.ok(Map.of("message", "success"));

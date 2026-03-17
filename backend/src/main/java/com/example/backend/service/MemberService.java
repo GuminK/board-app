@@ -1,8 +1,8 @@
 package com.example.backend.service;
 
 import com.example.backend.domain.Member;
-import com.example.backend.dto.member.LoginInfoDto;
-import com.example.backend.dto.member.MemberResponseDTO;
+import com.example.backend.dto.auth.LoginRequest;
+import com.example.backend.dto.auth.RegisterRequest;
 import com.example.backend.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,7 +35,7 @@ public class MemberService {
         return memberRepository.findByMemberId(memberId);
     }
 
-    public boolean userLogin(LoginInfoDto data){
+    public boolean userLogin(LoginRequest data){
         Member findMember = memberRepository.findByMemberId(data.getMemberId());
         if(findMember == null){
             return false;
@@ -45,7 +45,7 @@ public class MemberService {
 //        return findMember.getMemberPw().equals(data.getMemberPw());
     }
 
-    public String userRegister(MemberResponseDTO data){
+    public String userRegister(RegisterRequest data){
         Member findMember = memberRepository.findByMemberId(data.getMemberId());
         if(findMember == null){
             // 전달 받은 data의 비밀번호 encode

@@ -1,7 +1,7 @@
 package com.example.backend.controller.api;
 
-import com.example.backend.dto.member.LoginInfoDto;
-import com.example.backend.dto.member.MemberResponseDTO;
+import com.example.backend.dto.auth.LoginRequest;
+import com.example.backend.dto.auth.RegisterRequest;
 import com.example.backend.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,15 +15,13 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/auth")
 public class AuthController {
     private final MemberService memberService;
     private final AuthenticationManager authenticationManager;
@@ -35,8 +33,8 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/api/register")
-    public String userRegister(@RequestBody MemberResponseDTO data){
+    @PostMapping("/register")
+    public String userRegister(@RequestBody RegisterRequest data){
         // 넘어온 data로 회원가입 시도
         String msg = memberService.userRegister(data);
         if(msg.equals("already exist")){
@@ -45,8 +43,8 @@ public class AuthController {
         return "register success";
     }
 
-    @PostMapping("/api/login")
-    public ResponseEntity<?> userLogin(@RequestBody LoginInfoDto data, HttpServletRequest request, HttpServletResponse response){
+    @PostMapping("/login")
+    public ResponseEntity<?> userLogin(@RequestBody LoginRequest data, HttpServletRequest request, HttpServletResponse response){
 
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.getMemberId(), data.getMemberPw()));
 
@@ -59,7 +57,7 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("message", "login success", "memberId", auth.getName()));
     }
 
-    @PostMapping("/api/logout")
+    @PostMapping("/logout")
     public ResponseEntity<?> userLogout(HttpServletRequest request, HttpServletResponse response) {
         // SecurityContext 비우기
         SecurityContextHolder.clearContext();
@@ -72,7 +70,7 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("message", "logout success"));
     }
 
-    @GetMapping("/api/myInfo")
+    @GetMapping("/myInfo")
     public ResponseEntity<?> me(Authentication authentication){
         if(authentication == null){
             return ResponseEntity.status(401).body(Map.of("message", "Not logged in"));
