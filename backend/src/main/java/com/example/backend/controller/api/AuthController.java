@@ -45,7 +45,7 @@ public class AuthController {
         // 넘어온 data로 회원가입 시도
         String msg = memberService.userRegister(data);
         // 이미 해당 ID로 가입된 유저가 있을 때 409 반환
-        if(msg.equals("already exist")){
+        if("already exist".equals(msg)){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "register fail, already exist"));
         }
         // 성공적으로 회원가입에 성공했다면 201 반환

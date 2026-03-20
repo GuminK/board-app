@@ -5,6 +5,7 @@ import com.example.backend.domain.Member;
 import com.example.backend.dto.board.BoardCreateRequest;
 import com.example.backend.dto.board.BoardListItemResponse;
 import com.example.backend.dto.board.BoardUpdateRequest;
+import com.example.backend.exception.BoardNotFoundException;
 import com.example.backend.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -79,6 +80,6 @@ public class BoardService {
 
     public Board findByIdOrThrow(Long id){
         return boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Board not found. id=" + id));
+                .orElseThrow(() -> new BoardNotFoundException(id));
     }
 }

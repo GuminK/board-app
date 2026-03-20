@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getBoardById } from '../../api/boardApi';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { updateBoard } from '../../api/boardApi';
 
 export default function BoardUpdatePage() {
@@ -11,6 +11,8 @@ export default function BoardUpdatePage() {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -60,7 +62,8 @@ export default function BoardUpdatePage() {
             setForm({ title: "", content: ""});
             alert("게시물이 성공적으로 수정되었습니다.");
             // 게시판 목록 페이지로 이동
-            window.location.href = "/board/" + boardId;
+            // window.location.href = "/board/" + boardId;
+            navigate("/board/" + boardId);
         } catch (err) {
             setError(err.message || "게시물 수정에 실패했습니다.");
         } finally {

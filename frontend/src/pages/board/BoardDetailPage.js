@@ -7,8 +7,9 @@ export default function BoardDetailPage() {
     // 게시글 ID 가져오기
     const boardId = useParams().id;
 
-    const [board, setBoard] = useState({});
+    const [board, setBoard] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,9 +17,10 @@ export default function BoardDetailPage() {
         try {
             const response = await getBoardById(boardId);
             setBoard(response.data);
-            console.log("Fetched board:", response.data);
+            setError(null);
         } catch (error){
-            console.error("Failed to fetch board by id:", error);
+            setBoard(null);
+            setError("게시글을 불러오지 못했습니다.");
         } finally {
             setLoading(false);
         }
@@ -44,6 +46,8 @@ export default function BoardDetailPage() {
     if (loading){
         return <div>게시물을 불러오는 중입니다.</div>
     }
+    
+    if(error) return <div>{error}</div>
     
     if (!board) {
         return <div>게시글이 없습니다.</div>

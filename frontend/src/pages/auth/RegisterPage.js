@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/Login.module.css'
 import { useState } from 'react';
-import { apiRegister } from '../../api/authApi';
+import { apiCsrf, apiRegister } from '../../api/authApi';
 
 
 export default function RegisterPage() {
@@ -24,26 +24,26 @@ export default function RegisterPage() {
 
 
         try {
+            await apiCsrf();
+
             const res = await apiRegister(memberId, memberPw, memberName);
-            console.log(res.data);
-            if(res.data === "register success"){
+            
+            if(res.status === 201 && res.data.message === "register success"){
                 alert('회원가입에 성공했습니다.');
-                navigate('/');
+                navigate('/login');
+                return;
             }
-            else if (res.data === "register fail, already exist"){
-                alert('이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.');
-                setError("이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.");
-                navigate('/register');
-            }
-            else {
-                alert('회원가입에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
-                // navigate('/register');
-                console.log(res);
-                setError(res.message);
-            }
+            setError("예상치 못한 응답입니다.");
         } catch (error) {
-            const msg = error.response?.data || '회원가입 중 오류가 발생했습니다.';
-            setError(msg);
+            const status = error.response?.status;
+            const message = error.response?.data?.message;
+
+            if(status === 409) {
+                setError("이미 존재하는 아이디입니다.");
+                return;
+            }
+            
+            setError(message ?? "회원가입 중 오류가 발생했습니다.");
         }
     }
 
@@ -58,7 +58,7 @@ export default function RegisterPage() {
             <br></br>
             <input className={styles.input} type="text" name="userName" placeholder="이름" />
             <br></br>
-            {error && <p className={styles.error}>{error?.response?.data?.message ?? error.message}</p>}
+            {error && <p className={styles.error}>{error}</p>}
             <button className={styles.button}type="submit">회원가입</button>
         </form>
     </div>;

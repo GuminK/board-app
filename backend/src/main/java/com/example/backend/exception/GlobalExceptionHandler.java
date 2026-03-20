@@ -11,6 +11,13 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgument(IllegalArgumentException e){
+        return ResponseEntity.status(400).body(Map.of(
+                "message", e.getMessage()
+        ));
+    }
+
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<?> handleAuthentication(AuthenticationException e){
         return ResponseEntity.status(401).body(Map.of(
@@ -21,16 +28,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<?> handleAccessDenied(AccessDeniedException e){
         return ResponseEntity.status(403).body(Map.of(
-                "message", e.getMessage()
+                "message", "Forbidden"
         ));
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<?> handleIllegalArgument(IllegalArgumentException e){
+    @ExceptionHandler(BoardNotFoundException.class)
+    public ResponseEntity<?> handleBoardNotFound(BoardNotFoundException e){
         return ResponseEntity.status(404).body(Map.of(
                 "message", e.getMessage()
         ));
     }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception e){
