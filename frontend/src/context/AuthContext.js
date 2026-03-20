@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { apiMyInfo, apiLogout } from "../api/authApi";
+import { apiMyInfo, apiLogout, apiCsrf } from "../api/authApi";
 
 const AuthContext = createContext(null);
 
@@ -44,7 +44,16 @@ export function AuthProvider({ children }) {
     };
 
     useEffect(() => {
-        refreshMe();
+        const init = async () => {
+            try {
+                await apiCsrf();
+            } catch (err) {
+                
+            }
+            refreshMe();
+        };
+        init();
+        // refreshMe();
     }, []);
 
     return (

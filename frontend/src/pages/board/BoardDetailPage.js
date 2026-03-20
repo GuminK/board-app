@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { deleteBoard, getBoardById } from '../../api/boardApi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 export default function BoardDetailPage() {
     // 게시글 ID 가져오기
@@ -53,9 +54,10 @@ export default function BoardDetailPage() {
         <div style={{ maxWidth: 800, margin: "24px auto", padding: 16 }}>
             {/* 제목 조회수 화면에 표시 */}
             <div style={{ marginBottom: 12 }}>
-                <span>제목: {board.title} </span>
-                <span>조회수: {board.hitCount}</span>
-                <span>작성자: {board.memberName}</span>
+                <span style= {{fontSize:20}}>제목: {board.title} </span>
+                <span style={{ marginLeft: 12 }}> 작성일: {dayjs(board.createDate).format('YYYY-MM-DD HH:mm')}</span>
+                <span style={{ marginLeft: 12 }}> 조회수: {board.hitCount}</span>
+                <span style={{ marginLeft: 6 }}> 작성자: {board.memberName}</span>
             </div>
             <hr></hr>
             <div style={{ whiteSpace: "pre-line" }}> {board.contents}</div>

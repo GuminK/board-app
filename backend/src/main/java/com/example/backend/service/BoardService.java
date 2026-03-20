@@ -53,14 +53,6 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public void saveBoard(BoardUpdateRequest data){
-        Board board = boardRepository.findById(data.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Board not found. id=" + data.getId()));
-
-        board.setTitle(data.getTitle());
-        board.setContents(data.getContents());
-        boardRepository.save(board);
-    }
 
     public void updateBoard(BoardUpdateRequest data, String currentMemberId){
         Board board = findByIdOrThrow(data.getId());

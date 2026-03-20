@@ -27,22 +27,8 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
-    public Member findMemberByMemberIdAndMemberPw(String memberId, String memberPw){
-        return memberRepository.findByMemberIdAndMemberPw(memberId, memberPw);
-    }
-
     public Member findMemberByMemberId(String memberId){
         return memberRepository.findByMemberId(memberId);
-    }
-
-    public boolean userLogin(LoginRequest data){
-        Member findMember = memberRepository.findByMemberId(data.getMemberId());
-        if(findMember == null){
-            return false;
-        }
-        // 아이디에 맞는 비밀번호 체크
-        return passwordEncoder.matches(data.getMemberPw(), findMember.getMemberPw());
-//        return findMember.getMemberPw().equals(data.getMemberPw());
     }
 
     public String userRegister(RegisterRequest data){
@@ -61,7 +47,7 @@ public class MemberService {
             memberRepository.save(member);
             return member.getMemberName();
         }
-        else {
+        else { // 이미 해당 ID로 가입된 유저가 있을 때
             return "already exist";
         }
     }

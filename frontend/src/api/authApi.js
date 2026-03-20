@@ -1,7 +1,11 @@
 import instance from './axiosInstance';
 
+export const apiCsrf = () => {
+    return instance.get('/api/auth/csrf');
+};
+
 export const apiMyInfo = () => {
-    return instance.get('/api/auth/myInfo');
+    return instance.get('/api/auth/myinfo');
 }
 
 export const apiLogin = (memberId, memberPw) => {

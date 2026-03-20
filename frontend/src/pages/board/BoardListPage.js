@@ -28,19 +28,23 @@ export default function BoardListPage() {
             <main style={{ maxWidth: 800, margin: "24px auto", padding: 16 }}>
                 <section className="boardList">
                     <h1>게시글 목록</h1>
-                    <Link to ="/board/create">새 글 작성</Link>
+                    <Link to ="/board/create"><h3>새 글 작성</h3></Link>
                     <br></br>
                     {loading && <p>게시물을 불러오는 중입니다.</p>}
                     {boardList.length === 0 && !loading && <p>게시물이 없습니다.</p>}
                     {error && <p>게시물을 불러오는 중에 오류가 발생했습니다.</p>}
                     {boardList.map((board, index) => (
                         <span key={board.id}>
+                            <div>
                             <Link to={`/board/${board.id}`}>
-                            제목: {board.title}  
-                            조회수: {board.hitCount}  
-                            작성일: {dayjs(board.createDate).format('YYYY-MM-DD')} 
-                            작성자: {board.memberName}
+                            <span>제목: {board.title}</span>
                             </Link>
+                            </div>
+                            
+                            <span>조회수: {board.hitCount}</span>
+                            <span style={{marginLeft : 6}}>작성일: {dayjs(board.createDate).format('YYYY-MM-DD')}</span>
+                            <span style={{marginLeft : 6}}>작성자: {board.memberName}</span>
+                            <br></br>
                             <br></br>
                         </span>
                     ))}

@@ -52,9 +52,8 @@ public class BoardController {
     @PostMapping("/create")
     public ResponseEntity<?> boardCreate(@RequestBody BoardCreateRequest data, Authentication authentication){
         Member authMember = memberService.findMemberByMemberId(authentication.getName());
-
         boardService.saveBoard(data, authMember);
-        return ResponseEntity.ok(Map.of("message", "success"));
+        return ResponseEntity.status(201).body(Map.of("message", "success"));
     }
 
     // 게시글 수정
