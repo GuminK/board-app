@@ -3,8 +3,12 @@ export const getBoardList = () => {
     return instance.get('/api/board/list');
 };
 
-export const getBoardById = (id) => {
+export const getBoardDetail = (id) => {
     return instance.get(`/api/board/detail/${id}`);
+}
+
+export const increaseHitCount = (id) => {
+    return instance.post(`/api/board/${id}/hit`);
 }
 
 export const createBoard = (data) => {

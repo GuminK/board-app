@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { deleteBoard, getBoardById } from '../../api/boardApi';
+import { deleteBoard, getBoardDetail, increaseHitCount } from '../../api/boardApi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 
@@ -14,8 +14,15 @@ export default function BoardDetailPage() {
 
     useEffect(() => {
         const fetchBoardById = async () => {
+
+        try{
+            await increaseHitCount(boardId); // 조회수 증가 API 호출
+        } catch (error) {
+            console.error("Failed to increase hit count:", error);
+        }
+
         try {
-            const response = await getBoardById(boardId);
+            const response = await getBoardDetail(boardId); // 게시글 내용 불러오기 API 호출
             setBoard(response.data);
             setError(null);
         } catch (error){

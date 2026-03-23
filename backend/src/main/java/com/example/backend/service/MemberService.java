@@ -51,4 +51,9 @@ public class MemberService {
             return "already exist";
         }
     }
+
+//    public Member findByIdOrThrow(Long id){
+//        return memberRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Member not found: " + id));
+//    }
 }

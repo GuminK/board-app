@@ -26,7 +26,7 @@ public class SecurityConfig{
                         // 로그인이 필요한 api
                         .requestMatchers("/api/auth/logout").authenticated()
                         // 로그인이 필요없는 api
-                        .requestMatchers("/api/auth/**", "/api/board/list", "/api/board/detail/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/board/list", "/api/board/detail/**", "/api/board/*/hit").permitAll()
                         // 로그인이 필요한 api
                         .requestMatchers("/api/**").authenticated()
                         // 나머지

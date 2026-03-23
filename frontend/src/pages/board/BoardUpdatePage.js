@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBoardById } from '../../api/boardApi';
+import { getBoardDetail } from '../../api/boardApi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { updateBoard } from '../../api/boardApi';
 
@@ -24,7 +24,7 @@ export default function BoardUpdatePage() {
     useEffect(() => {
             const fetchBoardById = async () => {
             try {
-                const response = await getBoardById(boardId);
+                const response = await getBoardDetail(boardId);
                 setForm({
                     title: response.data.title,
                     content: response.data.contents,

@@ -20,6 +20,9 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private MemberService memberService;
+
     public List<Board> findAll(){
         return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
@@ -28,24 +31,15 @@ public class BoardService {
         return boardRepository.findBoardListDTO();
     }
 
-    public Board findById(Long id){
-        Optional<Board> optionalBoard = boardRepository.findById(id);
-        return optionalBoard.orElse(null);
-    }
-
-
-
     public void hitCountIncrease(Long id){
-        Optional<Board> optionalBoard = boardRepository.findById(id);
-        Board board =  optionalBoard.orElse(null);
-        if(board != null){
-            board.setHitCount(board.getHitCount()+1);
-            boardRepository.save(board);
-        }
+        Board board = findByIdOrThrow(id);
+        board.setHitCount(board.getHitCount() + 1);
+        boardRepository.save(board);
     }
 
-    public void saveBoard(BoardCreateRequest data, Member authMember){
+    public void saveBoard(BoardCreateRequest data, String memberId){
 //        Board board = new Board(data.getTitle(),data.getContents());
+        Member authMember = memberService.findMemberByMemberId(memberId);
         Board board = Board.builder()
                 .title(data.getTitle())
                 .contents(data.getContents())
