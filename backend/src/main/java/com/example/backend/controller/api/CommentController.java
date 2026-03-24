@@ -20,7 +20,8 @@ public class CommentController {
 
     @GetMapping("/boards/{boardId}/comments")
     public ResponseEntity<?> getCommentsList(@PathVariable Long boardId){
-        return null;
+        System.out.println("댓글에 해당되는 게시글 boardId: " + boardId);
+        return ResponseEntity.ok(commentService.getCommentList(boardId));
     }
 
     @PostMapping("/board/{boardId}/comments")

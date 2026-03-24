@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("""
-            select new com.example.backend.dto.board.BoardListItemResponse(
+            select new com.example.backend.dto.board.BoardListItemResponse  (
                 b.id,
                 b.title,
                 b.hitCount,

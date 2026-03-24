@@ -1,5 +1,5 @@
 import instance from './axiosInstance';
-export const getCommentList = (boardId) => {
+export const apiGetCommentList = (boardId) => {
     return instance.get(`/api/boards/${boardId}/comments`);
 };
 
