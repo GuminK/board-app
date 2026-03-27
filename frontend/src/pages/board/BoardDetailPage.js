@@ -102,20 +102,6 @@ export default function BoardDetailPage() {
 
             <CommentList comments={commentList}></CommentList>
             
-            {/* {commentList.map((comment, index) => (
-                    <span key={comment.id}>
-                        <hr></hr>
-                        <div>
-                        <span style={{fontSize: 14}}>작성자: {comment.memberName}</span>
-                        </div>
-                        <div>
-                            <span>{comment.contents}</span>
-                        </div>
-                        <div>
-                            <span>{dayjs(comment.createDate).format('YYYY-MM-DD HH:mm')}</span>
-                        </div>
-                    </span>
-                ))} */}
                 <br></br>
             <div>
                 <form>

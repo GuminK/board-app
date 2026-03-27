@@ -24,7 +24,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getCommentList(boardId));
     }
 
-    @PostMapping("/board/{boardId}/comments")
+    @PostMapping("/boards/{boardId}/comments")
     public ResponseEntity<?> createComment(@PathVariable Long boardId, Authentication authentication, @RequestBody CommentCreateRequest request){
         commentService.saveComment(boardId, authentication.getName(), request);
         return ResponseEntity.status(201).body(Map.of("message", "create comment success"));

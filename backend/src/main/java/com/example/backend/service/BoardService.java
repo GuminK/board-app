@@ -49,8 +49,8 @@ public class BoardService {
     }
 
 
-    public void updateBoard(BoardUpdateRequest data, String currentMemberId){
-        Board board = findByIdOrThrow(data.getId());
+    public void updateBoard(Long boardId, BoardUpdateRequest data, String currentMemberId){
+        Board board = findByIdOrThrow(boardId);
 
         validateOwner(board, currentMemberId);
 

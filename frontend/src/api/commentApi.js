@@ -4,5 +4,5 @@ export const apiGetCommentList = (boardId) => {
 };
 
 export const createComment = (boardId, data) => {
-    return instance.post(`/api/board/${boardId}/comments`, data);
+    return instance.post(`/api/boards/${boardId}/comments`, data);
 };

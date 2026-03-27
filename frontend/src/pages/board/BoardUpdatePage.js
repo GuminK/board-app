@@ -55,7 +55,7 @@ export default function BoardUpdatePage() {
             //     title: form.title,
             //     contents: form.content,
             // });
-            await updateBoard({id: boardId, title: form.title, contents: form.content});
+            await updateBoard(boardId, {title: form.title, contents: form.content});
 
 
             // 성공 시 폼 초기화 및 알림
