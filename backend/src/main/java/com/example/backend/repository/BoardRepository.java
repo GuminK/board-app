@@ -9,6 +9,7 @@ import java.util.List;
 
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
+    // 게시글 목록 리스트 조회
     @Query("""
             select new com.example.backend.dto.board.BoardListItemResponse  (
                 b.id,

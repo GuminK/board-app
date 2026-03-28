@@ -39,6 +39,13 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<?> handleCommentNotFound(CommentNotFoundException e){
+        return ResponseEntity.status(404).body(Map.of(
+                "message", e.getMessage()
+        ));
+    }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception e){

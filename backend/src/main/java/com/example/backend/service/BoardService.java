@@ -31,14 +31,15 @@ public class BoardService {
         return boardRepository.findBoardListDTO();
     }
 
+    // 게시글 조회수 증가
     public void hitCountIncrease(Long id){
         Board board = findByIdOrThrow(id);
         board.setHitCount(board.getHitCount() + 1);
         boardRepository.save(board);
     }
 
+    // 게시글 생성
     public void saveBoard(BoardCreateRequest data, String memberId){
-//        Board board = new Board(data.getTitle(),data.getContents());
         Member authMember = memberService.findMemberByMemberId(memberId);
         Board board = Board.builder()
                 .title(data.getTitle())
@@ -48,7 +49,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-
+    // 게시글 수정
     public void updateBoard(Long boardId, BoardUpdateRequest data, String currentMemberId){
         Board board = findByIdOrThrow(boardId);
 
@@ -59,6 +60,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    // 게시글 삭제
     public void deleteBoard(Long boardId, String currentMemberId){
         Board board = findByIdOrThrow(boardId);
         validateOwner(board, currentMemberId);
@@ -66,12 +68,14 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
+    // 게시글 작성자와 현재 접속자와 같은지 비교
     public void validateOwner(Board board, String currentMemberId){
         if(board.getMember() == null || !board.getMember().getMemberId().equals(currentMemberId)) {
             throw new AccessDeniedException("You do not have permission to modify this board");
         }
     }
 
+    // boardId로 게시글 조회
     public Board findByIdOrThrow(Long id){
         return boardRepository.findById(id)
                 .orElseThrow(() -> new BoardNotFoundException(id));

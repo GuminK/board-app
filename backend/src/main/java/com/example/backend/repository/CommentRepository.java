@@ -9,17 +9,17 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findByBoard_Id(Long boardId);
-
+    // 댓글 목록 리스트 조회
     @Query("""
             select new com.example.backend.dto.comment.CommentListItemResponse (
+                c.id,
                 c.member.memberName,
                 c.contents,
                 c.createDate
             )
             from Comment c
             where c.board.id = :boardId
-            order by c.createDate DESC
+            order by c.createDate ASC
             """)
     List<CommentListItemResponse> findCommentListByBoardId(@Param("boardId")Long boardId);
 }

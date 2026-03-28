@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { deleteBoard, getBoardDetail, increaseHitCount } from '../../api/boardApi';
-import { apiGetCommentList } from '../../api/commentApi';
+import { apiGetCommentList, apiCreateComment } from '../../api/commentApi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import CommentList from '../../components/comment/CommentList';
 import dayjs from 'dayjs';
+import CommentForm from '../../components/comment/CommentForm';
 
 export default function BoardDetailPage() {
     // 게시글 ID 가져오기
@@ -14,11 +15,20 @@ export default function BoardDetailPage() {
     
 
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [commentSubmitting, setCommentSubmitting] = useState(false);
+    const [boardError, setBoardError] = useState(null);
+    const [commentError, setCommentError] = useState(null);
 
     const navigate = useNavigate();
 
-    
+    const fetchCommentList = useCallback(async () => {
+            try {
+                const commentResponse = await apiGetCommentList(boardId);
+                setCommentList(commentResponse.data);
+            } catch (error) {
+                setCommentError("댓글을 불러오는 중에 오류가 발생했습니다.");
+            }
+        }, [boardId]);
 
     useEffect(() => {
         const fetchBoardById = async () => {
@@ -31,27 +41,20 @@ export default function BoardDetailPage() {
             try {
                 const response = await getBoardDetail(boardId); // 게시글 내용 불러오기 API 호출
                 setBoard(response.data);
-                setError(null);
+                setBoardError(null);
             } catch (error){
                 setBoard(null);
-                setError("게시글을 불러오지 못했습니다.");
+                setBoardError("게시글을 불러오지 못했습니다.");
             } finally {
                 setLoading(false);
             }
         };
 
-        const getCommentList = async () => {
-            try {
-                const commentResponse = await apiGetCommentList(boardId);
-                setCommentList(commentResponse.data);
-            } catch (error) {
-                setError("댓글을 불러오는 중에 오류가 발생했습니다.");
-            }
-        };
-
         fetchBoardById();
-        getCommentList();
-    }, [boardId]);
+        fetchCommentList();
+    }, [boardId, fetchCommentList]);
+
+
 
     function handleDelete() {
         // 삭제 로직 구현
@@ -68,13 +71,27 @@ export default function BoardDetailPage() {
         }
     }
 
+    async function handleCreateComment(contents) {
+        setCommentSubmitting(true);
+        setCommentError(null);
+        try {
+            await apiCreateComment(boardId, {contents});
+            await fetchCommentList();
+        } catch (error) {
+            setCommentError("댓글 작성에 실패했습니다.");
+            throw error;
+        } finally {
+            setCommentSubmitting(false);
+        }
+    }
+
     
 
     if (loading){
         return <div>게시물을 불러오는 중입니다.</div>
     }
     
-    if(error) return <div>{error}</div>
+    if(boardError) return <div>{boardError}</div>
     
     if (!board) {
         return <div>게시글이 없습니다.</div>
@@ -101,14 +118,9 @@ export default function BoardDetailPage() {
             </div>
 
             <CommentList comments={commentList}></CommentList>
-            
-                <br></br>
-            <div>
-                <form>
-                    <textarea placeholder="댓글을 입력하세요" style={{ width: "100%", height: 60 }}></textarea>
-                    <button type="submit">댓글 작성</button>
-                </form>
-            </div>
+            <br></br>
+            <CommentForm onSubmit={handleCreateComment} loading={commentSubmitting}></CommentForm>
+            {commentError && <div style={{ color: "red" }}>{commentError}</div>}
         </div>
     </>
     );

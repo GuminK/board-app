@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 const Button = ({ label, onClick, disabled = false, variant = 'primary' }) => {
     return (
         <button

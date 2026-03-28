@@ -35,23 +35,23 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
 
+    // csrf 발급
     @GetMapping("/csrf")
     public ResponseEntity<?> csrf(CsrfToken token){
         return ResponseEntity.ok(Map.of("token", token.getToken()));
     }
 
+    // 회원가입
     @PostMapping("/register")
     public ResponseEntity<?> userRegister(@RequestBody RegisterRequest data){
-        // 넘어온 data로 회원가입 시도
         String msg = memberService.userRegister(data);
-        // 이미 해당 ID로 가입된 유저가 있을 때 409 반환
         if("already exist".equals(msg)){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "register fail, already exist"));
         }
-        // 성공적으로 회원가입에 성공했다면 201 반환
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "register success"));
     }
 
+    // 로그인
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestBody LoginRequest data, HttpServletRequest request, HttpServletResponse response){
 
@@ -66,11 +66,10 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("message", "login success", "memberId", auth.getName()));
     }
 
+    // 로그아웃
     @PostMapping("/logout")
     public ResponseEntity<?> userLogout(HttpServletRequest request, HttpServletResponse response) {
-        // SecurityContext 비우기
         SecurityContextHolder.clearContext();
-        // Session 없애기
         HttpSession session = request.getSession(false);
         if(session != null){
             session.invalidate();
@@ -79,6 +78,7 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("message", "logout success"));
     }
 
+    // 내 정보 조회
     @GetMapping("/myinfo")
     public ResponseEntity<?> me(Authentication authentication){
         if(authentication == null
@@ -86,11 +86,11 @@ public class AuthController {
             return ResponseEntity.status(401).body(Map.of("message", "Not logged in"));
         }
 
+        String memberName = memberService.findMemberByMemberId(authentication.getName()).getMemberName();
+
         List<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
-
-        String memberName = memberService.findMemberByMemberId(authentication.getName()).getMemberName();
 
         return ResponseEntity.ok(Map.of(
                 "memberId", authentication.getName(),

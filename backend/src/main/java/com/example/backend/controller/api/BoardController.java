@@ -1,14 +1,11 @@
 package com.example.backend.controller.api;
 
 
-import com.example.backend.domain.Board;
-import com.example.backend.domain.Member;
 import com.example.backend.dto.board.BoardCreateRequest;
 import com.example.backend.dto.board.BoardListItemResponse;
 import com.example.backend.dto.board.BoardDetailResponse;
 import com.example.backend.dto.board.BoardUpdateRequest;
 import com.example.backend.service.BoardService;
-import com.example.backend.service.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -22,18 +19,18 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    public BoardController(BoardService boardService, MemberService memberService){
+    public BoardController(BoardService boardService){
         this.boardService = boardService;
     }
 
-    // 게시글 리스트
+    // 게시글 목록 조회
     @GetMapping
     public ResponseEntity<List<BoardListItemResponse>> getBoardList(){
         return ResponseEntity.ok(boardService.findAllListDTO());
     }
 
 
-    // 특정 게시글
+    // 게시글 조회
     @GetMapping("/{id}")
     public ResponseEntity<BoardDetailResponse> getBoardDetail(@PathVariable Long id){
         return ResponseEntity.ok(new BoardDetailResponse(boardService.findByIdOrThrow(id)));
@@ -44,7 +41,7 @@ public class BoardController {
         boardService.hitCountIncrease(id);
         return ResponseEntity.ok(Map.of("message", "increase hitCount success"));
     }
-
+    
     // 게시글 등록
     @PostMapping
     public ResponseEntity<?> createBoard(@RequestBody BoardCreateRequest data, Authentication authentication){
@@ -58,7 +55,7 @@ public class BoardController {
         boardService.updateBoard(id, data, authentication.getName());
         return ResponseEntity.ok(Map.of("message", "update board success"));
     }
-
+    
     // 게시글 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long id, Authentication authentication){

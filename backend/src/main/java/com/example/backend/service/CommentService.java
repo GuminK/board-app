@@ -29,7 +29,6 @@ public class CommentService {
 
         Comment parentComment = null;
 
-        // 부모 댓글 null 확인, 해당 게시글 댓글인지 확인
         if(request.parentCommentId() != null){
             parentComment = findByIdOrThrow(request.parentCommentId());
 
@@ -48,24 +47,9 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-//    public List<CommentListItemResponse> getCommentList(Long boardId){
-//        commentRepository.find
-//    }
-
     public List<CommentListItemResponse> getCommentList(Long boardId){
         return commentRepository.findCommentListByBoardId(boardId);
     }
-
-//    public List<Comment> getCommentList(Long boardId){
-//
-//        System.out.println("boardId에 해당하는 댓글들 ");
-//        List<Comment> Test = commentRepository.findByBoard_Id(boardId);
-//
-//        for (Comment testcomment : Test){
-//            System.out.println("댓글 내용: " + testcomment.getContents());
-//        }
-//        return commentRepository.findByBoard_Id(boardId);
-//    }
 
     public Comment findByIdOrThrow(Long id){
         return commentRepository.findById(id)

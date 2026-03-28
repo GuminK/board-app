@@ -24,8 +24,8 @@ public class Member {
 
     private String memberPw;
 
-    // 관리자: ADMIN
-    // 일반 회원: USER
+    // 관리자 ADMIN
+    // 일반회원 : USER
     // 게스트 : GUEST
     @ColumnDefault("USER")
     private String roleType;

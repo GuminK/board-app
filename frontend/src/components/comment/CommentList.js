@@ -7,9 +7,9 @@ const CommentList = ({ comments}) => {
 
     return (
         <div>
-            {comments.map((comment, index) => (
+            {comments.map((comment) => (
                 <div 
-                key = {index}
+                key = {comment.commentId}
                 >
                     <div>
                         작성자: {comment.memberName}
@@ -18,8 +18,9 @@ const CommentList = ({ comments}) => {
                         {comment.contents}
                     </div>
                     <div>
-                        {dayjs(comment.creatDate).format('YYYY-MM-DD HH:mm')}
+                        {dayjs(comment.createDate).format('YYYY-MM-DD HH:mm')}
                     </div>
+                    <hr></hr>
                 </div>
                 
             ))}

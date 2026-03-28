@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,7 +20,7 @@ public class SecurityConfig{
                         .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
                         .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        // Spring에서 React를 배포할 때 필요
+                        // Spring에서 React를 배포할 때 사용
                         // 가끔 Build 초기화가 안되는데 브라우저에서 Ctrl+Shift+R로 캐시 지우고 Build파일 다시 넣기
                         .requestMatchers("/", "/index.html", "/favicon.ico", "/manifest.json", "/robots.txt", "/static/**", "/logo192.png", "/logo512.png").permitAll()
                         // 로그인이 필요한 api
@@ -29,7 +28,6 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.GET, "/api/boards/**").permitAll()
                         // 로그인이 필요없는 api
                         .requestMatchers("/api/auth/**", "/api/boards/*/hit").permitAll()
-                        .requestMatchers("/api/boards/*/comments").permitAll()
                         // 로그인이 필요한 api
                         .requestMatchers("/api/**").authenticated()
                         // 나머지
