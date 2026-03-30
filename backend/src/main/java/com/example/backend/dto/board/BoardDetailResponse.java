@@ -14,6 +14,7 @@ public class BoardDetailResponse {
     private String title;
     private String contents;
     private String memberName;
+    private String memberId;
     private int hitCount;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
@@ -24,6 +25,7 @@ public class BoardDetailResponse {
         this.title = board.getTitle();
         this.contents = board.getContents();
         this.memberName = board.getMember().getMemberName();
+        this.memberId = board.getMember().getMemberId();
         this.hitCount = board.getHitCount();
         this.createDate = board.getCreateDate();
         this.lastModifiedDate = board.getLastModifiedDate();

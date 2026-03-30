@@ -50,10 +50,10 @@ public class BoardService {
     }
 
     // 게시글 수정
-    public void updateBoard(Long boardId, BoardUpdateRequest data, String currentMemberId){
+    public void updateBoard(Long boardId, BoardUpdateRequest data, String currentLoginId){
         Board board = findByIdOrThrow(boardId);
 
-        validateOwner(board, currentMemberId);
+        validateOwner(board, currentLoginId);
 
         board.setTitle(data.getTitle());
         board.setContents(data.getContents());
@@ -61,16 +61,16 @@ public class BoardService {
     }
 
     // 게시글 삭제
-    public void deleteBoard(Long boardId, String currentMemberId){
+    public void deleteBoard(Long boardId, String currentLoginId){
         Board board = findByIdOrThrow(boardId);
-        validateOwner(board, currentMemberId);
+        validateOwner(board, currentLoginId);
 
         boardRepository.delete(board);
     }
 
     // 게시글 작성자와 현재 접속자와 같은지 비교
-    public void validateOwner(Board board, String currentMemberId){
-        if(board.getMember() == null || !board.getMember().getMemberId().equals(currentMemberId)) {
+    public void validateOwner(Board board, String currentLoginId){
+        if(board.getMember() == null || !board.getMember().getMemberId().equals(currentLoginId)) {
             throw new AccessDeniedException("You do not have permission to modify this board");
         }
     }

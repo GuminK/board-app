@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import { deleteBoard, getBoardDetail, increaseHitCount } from '../../api/boardApi';
-import { apiGetCommentList, apiCreateComment } from '../../api/commentApi';
+import { apiGetCommentList, apiCreateComment, apiUpdateComment, apiDeleteComment } from '../../api/commentApi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import CommentList from '../../components/comment/CommentList';
 import dayjs from 'dayjs';
@@ -12,6 +13,8 @@ export default function BoardDetailPage() {
 
     const [board, setBoard] = useState(null);
     const [commentList, setCommentList] = useState([]);
+    const { me } = useAuth();
+    const isAuthor = me && board && me.memberName === board.memberName;
     
 
     const [loading, setLoading] = useState(true);
@@ -54,6 +57,25 @@ export default function BoardDetailPage() {
         fetchCommentList();
     }, [boardId, fetchCommentList]);
 
+    async function handleUpdateComment(commentId, contents) {
+        try {
+            await apiUpdateComment(commentId, {contents});
+            await fetchCommentList();
+        } catch(error) {
+            setCommentError("댓글 수정에 실패했습니다. ");
+            
+        }
+    }
+
+    async function handleDeleteComment(commentId) {
+        try {
+            await apiDeleteComment(commentId);
+            await fetchCommentList();
+        } catch (error) {
+            setCommentError("댓글 삭제에 실패했습니다. ");
+            
+        }
+    }
 
 
     function handleDelete() {
@@ -84,9 +106,7 @@ export default function BoardDetailPage() {
             setCommentSubmitting(false);
         }
     }
-
     
-
     if (loading){
         return <div>게시물을 불러오는 중입니다.</div>
     }
@@ -113,11 +133,11 @@ export default function BoardDetailPage() {
             <hr></hr>
             {/* 수정 삭제 버튼 */}
             <div>
-                <Link to={`/board/update/${boardId}`}><button>수정</button></Link> 
-                <button onClick={handleDelete}>삭제</button>
+                {isAuthor && <Link to={`/board/update/${boardId}`}><button>게시글 수정</button></Link> }
+                {isAuthor || <button onClick={handleDelete}>게시글 삭제</button>}
             </div>
 
-            <CommentList comments={commentList}></CommentList>
+            <CommentList comments={commentList} onUpdate={handleUpdateComment} onDelete={handleDeleteComment}></CommentList>
             <br></br>
             <CommentForm onSubmit={handleCreateComment} loading={commentSubmitting}></CommentForm>
             {commentError && <div style={{ color: "red" }}>{commentError}</div>}

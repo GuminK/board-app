@@ -2,6 +2,7 @@ package com.example.backend.controller.api;
 
 import com.example.backend.dto.comment.CommentCreateRequest;
 import com.example.backend.dto.comment.CommentListItemResponse;
+import com.example.backend.dto.comment.CommentUpdateRequest;
 import com.example.backend.service.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -31,6 +32,20 @@ public class CommentController {
     public ResponseEntity<?> createComment(@PathVariable Long boardId, Authentication authentication, @RequestBody CommentCreateRequest request){
         commentService.saveComment(boardId, authentication.getName(), request);
         return ResponseEntity.status(201).body(Map.of("message", "create comment success"));
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<?> deleteComment(@PathVariable Long commentId, Authentication authentication){
+        commentService.deleteComment(commentId, authentication.getName());
+        return ResponseEntity.status(204).body(Map.of("message", "delete comment success"));
+    }
+
+    // 댓글 수정
+    @PutMapping("/comments/{commentId}")
+    public ResponseEntity<?> updateComment(@PathVariable Long commentId, Authentication authentication, @RequestBody CommentUpdateRequest request){
+        commentService.updateComment(commentId, authentication.getName(), request);
+        return ResponseEntity.ok().body(Map.of("message", "update comment success"));
     }
 
 }
