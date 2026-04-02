@@ -26,6 +26,7 @@ export default function CommentForm({onSubmit, loading}) {
                     value={contents}
                     onChange={(e) => setContents(e.target.value)}
                     rows={4}
+                    style={{ width: "100%", boxSizing: "border-box" }}
                     placeholder="댓글을 입력하세요."
                     disabled={loading}
                 />

@@ -14,7 +14,7 @@ export default function BoardDetailPage() {
     const [board, setBoard] = useState(null);
     const [commentList, setCommentList] = useState([]);
     const { me } = useAuth();
-    const isAuthor = me && board && me.memberName === board.memberName;
+    const isAuthor = me && board && me.memberId === board.memberId;
     
 
     const [loading, setLoading] = useState(true);
@@ -78,18 +78,16 @@ export default function BoardDetailPage() {
     }
 
 
-    function handleDelete() {
+    async function handleDeleteBoard() {
         // 삭제 로직 구현
         if (window.confirm("정말로 이 게시물을 삭제하시겠습니까?")) {
-            deleteBoard(boardId)
-            .then(() => {
+            try{
+                await deleteBoard(boardId);
                 alert("게시물이 성공적으로 삭제되었습니다.");
-                // 삭제 후 메인 페이지로 이동
                 navigate('/board');
-            })
-            .catch((error) => {
+            } catch (error){
                 alert("게시물 삭제에 실패했습니다.");
-            });
+            } 
         }
     }
 
@@ -134,7 +132,7 @@ export default function BoardDetailPage() {
             {/* 수정 삭제 버튼 */}
             <div>
                 {isAuthor && <Link to={`/board/update/${boardId}`}><button>게시글 수정</button></Link> }
-                {isAuthor || <button onClick={handleDelete}>게시글 삭제</button>}
+                {isAuthor && <button onClick={handleDeleteBoard}>게시글 삭제</button>}
             </div>
 
             <CommentList comments={commentList} onUpdate={handleUpdateComment} onDelete={handleDeleteComment}></CommentList>

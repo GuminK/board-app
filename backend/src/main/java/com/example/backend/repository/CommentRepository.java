@@ -13,6 +13,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("""
             select new com.example.backend.dto.comment.CommentListItemResponse (
                 c.id,
+                c.member.memberId,
                 c.member.memberName,
                 c.contents,
                 c.createDate
