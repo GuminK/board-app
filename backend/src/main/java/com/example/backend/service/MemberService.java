@@ -1,7 +1,6 @@
 package com.example.backend.service;
 
 import com.example.backend.domain.Member;
-import com.example.backend.dto.auth.LoginRequest;
 import com.example.backend.dto.auth.RegisterRequest;
 import com.example.backend.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;

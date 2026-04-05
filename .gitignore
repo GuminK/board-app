@@ -1,7 +1,10 @@
 # =====================================================
 # 🌐 Unified .gitignore for Test-board (Spring Boot + React)
 # =====================================================
-
+# aws ec2 keypair
+aws-ec2-mypage.pem
+/backend/aws-ec2-mypage.pem
+/frontend/aws-ec2-mypage.pem
 # ------------------------------
 # 🧠 Common (운영체제, 에디터, 로그 등)
 # ------------------------------

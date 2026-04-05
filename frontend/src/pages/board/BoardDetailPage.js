@@ -63,7 +63,7 @@ export default function BoardDetailPage() {
             await fetchCommentList();
         } catch(error) {
             setCommentError("댓글 수정에 실패했습니다. ");
-            
+            throw error;
         }
     }
 
@@ -73,7 +73,6 @@ export default function BoardDetailPage() {
             await fetchCommentList();
         } catch (error) {
             setCommentError("댓글 삭제에 실패했습니다. ");
-            
         }
     }
 

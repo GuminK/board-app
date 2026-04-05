@@ -7,21 +7,23 @@ import com.example.backend.dto.board.BoardListItemResponse;
 import com.example.backend.dto.board.BoardUpdateRequest;
 import com.example.backend.exception.BoardNotFoundException;
 import com.example.backend.repository.BoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BoardService {
-    @Autowired
-    private BoardRepository boardRepository;
 
-    @Autowired
-    private MemberService memberService;
+
+    final private BoardRepository boardRepository;
+    final private MemberService memberService;
+
+    public BoardService(BoardRepository boardRepository, MemberService memberService) {
+        this.boardRepository = boardRepository;
+        this.memberService = memberService;
+    }
 
     public List<Board> findAll(){
         return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));

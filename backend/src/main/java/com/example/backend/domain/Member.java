@@ -24,7 +24,7 @@ public class Member {
 
     private String memberPw;
 
-    // 관리자 ADMIN
+    // 관리자 : ADMIN
     // 일반회원 : USER
     // 게스트 : GUEST
     @ColumnDefault("USER")

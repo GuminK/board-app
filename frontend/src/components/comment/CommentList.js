@@ -36,7 +36,7 @@ export default function CommentList({comments, onUpdate, onDelete}) {
                     {(editingCommentId === comment.commentId) ? (
                         <div>
                             <textarea
-                                defaultValue={comment.contents}
+                                value={editedContents}
                                 onChange={(e) => setEditedContents(e.target.value)}
                                 rows={4}
                                 style={{ width: "100%", boxSizing: "border-box" }}

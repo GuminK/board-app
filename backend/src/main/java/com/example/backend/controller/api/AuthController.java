@@ -1,6 +1,8 @@
 package com.example.backend.controller.api;
 
+import com.example.backend.domain.Member;
 import com.example.backend.dto.auth.LoginRequest;
+import com.example.backend.dto.auth.MyInfoResponse;
 import com.example.backend.dto.auth.RegisterRequest;
 import com.example.backend.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -63,7 +64,7 @@ public class AuthController {
 
         securityContextRepository.saveContext(context, request, response);
 
-        return ResponseEntity.ok(Map.of("message", "login success", "memberId", auth.getName()));
+        return ResponseEntity.ok(Map.of("message", "login success"));
     }
 
     // 로그아웃
@@ -85,18 +86,8 @@ public class AuthController {
         || !authentication.isAuthenticated()){
             return ResponseEntity.status(401).body(Map.of("message", "Not logged in"));
         }
+        Member member = memberService.findMemberByMemberId(authentication.getName());
 
-        String memberName = memberService.findMemberByMemberId(authentication.getName()).getMemberName();
-
-        List<String> roles = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
-
-        return ResponseEntity.ok(Map.of(
-                "memberId", authentication.getName(),
-                "memberName", memberName,
-                "roles", roles
-                )
-        );
+        return ResponseEntity.ok(new MyInfoResponse(member.getMemberName(), member.getMemberId(), member.getRoleType()));
     }
 }

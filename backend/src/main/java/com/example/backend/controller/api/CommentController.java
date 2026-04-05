@@ -38,7 +38,7 @@ public class CommentController {
     @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<?> deleteComment(@PathVariable Long commentId, Authentication authentication){
         commentService.deleteComment(commentId, authentication.getName());
-        return ResponseEntity.status(204).body(Map.of("message", "delete comment success"));
+        return ResponseEntity.status(204).build();
     }
 
     // 댓글 수정
