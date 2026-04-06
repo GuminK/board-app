@@ -25,7 +25,7 @@ export default function LoginPage() {
                 navigate('/login');
             }
         } catch (error) {
-            const msg = error.response?.data || '로그인 중 오류가 발생했습니다.';
+            const msg = error.response?.data?.message || '로그인 중 오류가 발생했습니다.';
             setError(msg);
         }
     }
@@ -41,7 +41,7 @@ export default function LoginPage() {
             <button className={styles.button} type="button" onClick={() => navigate('/register')}>회원가입</button>
         </form>
         {/* {error && <p className ={styles.error}>{error?.response?.data?.message ?? error.message}</p>} */}
-        {error && <p className ={styles.error}>{error ?? error.message}</p>}
+        {error && <p className ={styles.error}>{error}</p>}
         
         </div>;
 }
