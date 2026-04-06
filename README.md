@@ -1,7 +1,9 @@
 # 게시글 사이트
 
 React와 Spring Boot를 사용해 만든 게시판 프로젝트입니다.  
-회원가입, 로그인, 게시글 CRUD, 댓글 CRUD 기능을 구현했고, 세션 기반 인증과 권한 검증을 적용했습니다.
+회원가입, 로그인, 게시글 CRUD, 댓글 CRUD 기능을 구현했고, 세션 기반 인증과 권한 검증을 적용했습니다.  
+현재 RDS로 서버를 가동중이고, EC2로 데이터베이스 연동시켰습니다.  
+http://3.39.11.162:8080
 
 ## 프로젝트 소개
 
@@ -100,7 +102,7 @@ frontend
 ├─ pages  
 └─ styles  
 
-## 실행 방법 (Backend만 실행시켜도 가능)
+## 실행 방법 
 ### Backend
 cd backend  
 ./gradlew bootRun  
@@ -109,6 +111,9 @@ cd backend
 cd frontend  
 npm install  
 npm start  
+
+## 배포중인 사이트
+http://3.39.11.162:8080
 
 ![React App - Chrome 2026-04-05 17-28-53](https://github.com/user-attachments/assets/e5060c18-c097-40c4-9553-5fd59bf79455)
 ![React App - Chrome 2026-04-05 17-28-53 (1)](https://github.com/user-attachments/assets/584c9ad3-069c-4bf6-9f3e-2ae76af64d5a)
