@@ -2,7 +2,7 @@
 
 React와 Spring Boot를 사용해 만든 게시판 프로젝트입니다.  
 회원가입, 로그인, 게시글 CRUD, 댓글 CRUD 기능을 구현했고, 세션 기반 인증과 권한 검증을 적용했습니다.  
-현재 RDS로 서버를 가동중이고, EC2로 데이터베이스 연동시켰습니다.  
+Spring Boot 서버는 AWS EC2에 배포했고, 데이터베이스는 AWS RDS PostgreSQL을 사용했습니다.  
 http://3.39.11.162:8080
 
 ## 프로젝트 소개
@@ -10,14 +10,17 @@ http://3.39.11.162:8080
 이 프로젝트는 게시글과 댓글 기능이 있는 기본적인 게시판 서비스입니다.  
 단순히 화면만 만드는 것에 그치지 않고, 로그인한 사용자만 글과 댓글을 작성할 수 있도록 했고, 작성자만 수정과 삭제를 할 수 있도록 구현했습니다.
 
-또한 React와 Spring Boot를 분리해서 개발하면서 프론트엔드와 백엔드가 어떻게 연결되는지 직접 경험하는 것을 목표로 했습니다.
+또한 React와 Spring Boot를 분리해서 개발하면서 프론트엔드와 백엔드가 어떻게 연결되는지 직접 경험했고,
+EC2와 RDS 를 연동해 외부 환경에서도 동작할 수 있도록 구성했습니다.
 
 ## 기술 스택
 
 - Frontend: React, React Router, Axios
 - Backend: Spring Boot, Spring Security, Spring Data JPA, Lombok
 - Database: PostgreSQL
+- Infra: AWS EC2, AWS RDS
 - Build Tool: Gradle, npm
+
 
 ## 주요 기능
 
@@ -79,6 +82,10 @@ Spring Security를 적용해서 로그인한 사용자만 글 작성, 댓글 작
 처음에는 `/list`, `/create`, `/update`처럼 기능 중심으로 경로를 작성했지만, 진행하면서 REST API 방식에 맞게 `/api/boards`, `/api/boards/{id}`, `/api/boards/{boardId}/comments` 형태로 수정했습니다.  
 이 과정을 통해 URL도 기능보다 리소스 중심으로 설계하는 것이 더 자연스럽다는 점을 알게 되었습니다.
 
+### 5. 배포 환경에서의 DB연결
+로컬에서는 바로 연결되던 데이터베이스를 AWS환경에서 다시 연결하는 과정이 쉽지 않았습니다.
+EC2에 올린 SpringBoot 서버와 RDS PostgreSQL을 연결하면서 다양한 환경 설정, 접속 정보를 맞추어보는 과정을 경험했습니다.
+
 ## 프로젝트 구조
 
 backend  
@@ -112,8 +119,11 @@ cd frontend
 npm install  
 npm start  
 
-## 배포중인 사이트
-http://3.39.11.162:8080
+## 배포 환경
+- SpringBoot 서버는 AWS EC2에 배포했습니다.
+- 데이터베이스는 AWS RDS PostgreSQL을 사용했습니다.
+- 서버와 데이터베이스를 연동해 외부 환경에서도 동작할 수 있도록 구성했습니다.
+- 링크: http://3.39.11.162:8080/
 
 ![React App - Chrome 2026-04-05 17-28-53](https://github.com/user-attachments/assets/e5060c18-c097-40c4-9553-5fd59bf79455)
 ![React App - Chrome 2026-04-05 17-28-53 (1)](https://github.com/user-attachments/assets/584c9ad3-069c-4bf6-9f3e-2ae76af64d5a)
