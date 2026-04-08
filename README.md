@@ -109,7 +109,7 @@ frontend
 ├─ pages  
 └─ styles  
 
-## 실행 방법 
+## 실행 방법 (로컬에서 실행시킬 떄)
 ### Backend
 cd backend  
 ./gradlew bootRun  
