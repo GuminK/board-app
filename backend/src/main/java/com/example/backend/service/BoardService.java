@@ -7,9 +7,11 @@ import com.example.backend.dto.board.BoardListItemResponse;
 import com.example.backend.dto.board.BoardUpdateRequest;
 import com.example.backend.exception.BoardNotFoundException;
 import com.example.backend.repository.BoardRepository;
+import com.example.backend.repository.CommentRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,10 +21,12 @@ public class BoardService {
 
     final private BoardRepository boardRepository;
     final private MemberService memberService;
+    final private CommentRepository commentRepository;
 
-    public BoardService(BoardRepository boardRepository, MemberService memberService) {
+    public BoardService(BoardRepository boardRepository, MemberService memberService, CommentRepository commentRepository) {
         this.boardRepository = boardRepository;
         this.memberService = memberService;
+        this.commentRepository = commentRepository;
     }
 
     public List<Board> findAll(){
@@ -63,10 +67,12 @@ public class BoardService {
     }
 
     // 게시글 삭제
+    @Transactional
     public void deleteBoard(Long boardId, String currentLoginId){
         Board board = findByIdOrThrow(boardId);
         validateOwner(board, currentLoginId);
 
+        commentRepository.deleteByBoard_Id(boardId);
         boardRepository.delete(board);
     }
 

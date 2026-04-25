@@ -22,5 +22,11 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             where c.board.id = :boardId
             order by c.createDate ASC
             """)
-    List<CommentListItemResponse> findCommentListByBoardId(@Param("boardId")Long boardId);
+    List<CommentListItemResponse> findCommentItemListByBoardId(@Param("boardId")Long boardId);
+
+    List<Comment> findCommentListByBoardId(@Param("boardId")Long boardId);
+
+    void deleteByBoard_Id(Long boardId);
+
+
 }

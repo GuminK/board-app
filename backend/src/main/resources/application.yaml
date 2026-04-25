@@ -1,18 +1,14 @@
-server:
-  address: 0.0.0.0
-  port: 8080
-
 spring:
-#  profiles:
-#    active: dev
+  #  profiles:
+  #    active: dev
   application:
     name: backend
   datasource:
-    url: jdbc:postgresql://localhost:5432/testdb
-    username: test
-    password: 1234
+    url: jdbc:postgresql://tutorial-database-1.cbac8aua4isi.ap-northeast-2.rds.amazonaws.com:5432/testdb
+    username: kimgumin
+    password: dkssud1230
   jpa:
     hibernate:
-#      ddl-auto: create-drop
+      #      ddl-auto: create-drop
       ddl-auto: update
     show-sql: true

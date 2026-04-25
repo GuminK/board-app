@@ -66,7 +66,7 @@ public class CommentService {
     }
 
     public List<CommentListItemResponse> getCommentList(Long boardId){
-        return commentRepository.findCommentListByBoardId(boardId);
+        return commentRepository.findCommentItemListByBoardId(boardId);
     }
 
     public void validateOwner(Comment comment, String currentLoginId){
