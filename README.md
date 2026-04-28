@@ -123,7 +123,7 @@ npm start
 - SpringBoot 서버는 AWS EC2에 배포했습니다.
 - 데이터베이스는 AWS RDS PostgreSQL을 사용했습니다.
 - 서버와 데이터베이스를 연동해 외부 환경에서도 동작할 수 있도록 구성했습니다.
-- 링크: http://3.39.11.162:8080/
+- 링크: http://3.39.11.162:8080/ (현재 중단 되었습니다 2026-04-29)
 
 ![React App - Chrome 2026-04-05 17-28-53](https://github.com/user-attachments/assets/e5060c18-c097-40c4-9553-5fd59bf79455)
 ![React App - Chrome 2026-04-05 17-28-53 (1)](https://github.com/user-attachments/assets/584c9ad3-069c-4bf6-9f3e-2ae76af64d5a)
